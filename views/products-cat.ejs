@@ -1,0 +1,32 @@
+<h1>List of all Products of Categories</h1>
+
+<% include ./partials/messages %>
+
+<h2>Categories</h2>
+<ul>
+  <li><a href="/products/1">All</a></li>
+  <% cats.forEach(cat => { %>
+  <li><a href="/cat/<%= cat.title %>"><%= cat.title %></a></li>
+  <% }) %>
+</ul>
+
+<h2><a href="/">Add a Product</a></h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">IMG</th>
+      <th scope="col">Product Title</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% products.forEach(function(p){ %>
+    <tr>
+      <td><img src="#" /></td>
+      <td><a href="/product-detail/<%= p._id %>"><%= p.productTitle %></a></td>
+      <td><%= p.priceWholesale %></td>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>

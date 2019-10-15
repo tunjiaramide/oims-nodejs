@@ -1,3 +1,4 @@
+<a href="/products/1">Back to all Products</a>
 <h1>Single Product</h1>
 
 <h2><%= product.productTitle %></h2>
@@ -5,4 +6,6 @@
 
 <h5><%= product.priceWholesale %></h5>
 
-<a href="/cart/<%= product._id %>">Add to Cart</a>
+<a href="/cart/<%= product._id %>">Add to Cart</a> <br />
+
+<a href="/product-detail/edit/<%= product._id %>">Edit Product</a>
