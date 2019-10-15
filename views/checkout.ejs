@@ -8,6 +8,7 @@
       <th scope="col">Product Title</th>
       <th scope="col">Qty</th>
       <th>Price</th>
+      <th>BarCode</th>
       <th></th>
       <th>Sub Total</th>
     </tr>
@@ -20,6 +21,7 @@
       <td><%= c.title %></td>
       <td><%= c.qty %></td>
       <td><%= c.price %></td>
+      <td><%= c.barCode %></td>
       <td>
         <a href="/cart/update/<%= c.id %>?action=add">+</a>&nbsp;
         <a href="/cart/update/<%= c.id %>?action=delete">-</a>&nbsp;

@@ -142,4 +142,50 @@ router.get("/product-detail/edit/:id", function(req, res, next) {
   });
 });
 
+// Update Products
+router.post("/product-detail/edit/:id", (req, res, next) => {
+  var productTitle = req.body.productTitle && req.body.productTitle.trim();
+  var manDate = req.body.manDate && req.body.manDate.trim();
+  var expDate = req.body.expDate && req.body.expDate.trim();
+  var color = req.body.color && req.body.color.trim();
+  var imgUrl = req.body.imgUrl && req.body.imgUrl.trim();
+  var priceWholesale =
+    req.body.priceWholesale && req.body.priceWholesale.trim();
+  var priceRetail = req.body.priceRetail && req.body.priceRetail.trim();
+  var barCode = req.body.barCode && req.body.barCode.trim();
+  var sku = req.body.sku && req.body.sku.trim();
+  var stockLevel = req.body.stockLevel && req.body.stockLevel.trim();
+  var size = req.body.size && req.body.size.trim();
+  var weight = req.body.weight && req.body.weight.trim();
+  var category = req.body.category && req.body.category.trim();
+  var productDesc = req.body.productDesc && req.body.productDesc.trim();
+
+  Product.updateOne(
+    { _id: req.params.id },
+    {
+      productTitle: productTitle,
+      manDate: manDate,
+      expDate: expDate,
+      color: color,
+      imgUrl: imgUrl,
+      priceWholesale: priceWholesale,
+      priceRetail: priceRetail,
+      barCode: barCode,
+      sku: sku,
+      stockLevel: stockLevel,
+      size: size,
+      weight: weight,
+      category: category,
+      productDesc: productDesc
+    },
+
+    function(err) {
+      if (err) console.log(err);
+
+      req.flash("success_msg", "Product updated");
+      res.redirect("product-detail");
+    }
+  );
+});
+
 module.exports = router;

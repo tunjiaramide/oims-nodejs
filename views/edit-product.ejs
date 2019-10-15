@@ -1,8 +1,9 @@
 <a href="/products/1">Back to Products</a>
 
 <h2>Edit a Product</h2>
+<% include ./partials/messages %>
 
-<form method="post" action="/admin/product/edit-product/<%= id %>">
+<form method="post" action="/product-detail/edit/<%= id %>">
   <div class="row product_add">
     <div class="col-md-6">
       <div class="form-group">
@@ -12,6 +13,7 @@
           class="form-control"
           name="productTitle"
           value="<%= productTitle %>"
+          required
         />
       </div>
 
@@ -65,6 +67,7 @@
             class="form-control"
             name="priceWholesale"
             value="<%= priceWholesale %>"
+            required
           />
         </div>
 
