@@ -82,4 +82,21 @@ router.get("/cart/:id", (req, res) => {
     .catch(err => console.log(err));
 });
 
+router.get("/checkout", (req, res) => {
+  res.render("checkout", {
+    cart: req.session.cart
+  });
+});
+
+// Administration Section
+
+// Admin Dasboard
+router.get("/dashboard", (req, res) => {
+  Product.countDocuments({}).then(c => {
+    res.render("dashboard", {
+      totalProducts: c
+    });
+  });
+});
+
 module.exports = router;
