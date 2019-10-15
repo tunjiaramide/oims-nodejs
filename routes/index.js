@@ -112,37 +112,55 @@ router.get("/dashboard", (req, res) => {
   });
 });
 
-//Edit Product
-router.get("/product-detail/edit/:id", function(req, res, next) {
+// Edit Product
+router.get("/product-detail/edit/:id", (req, res) => {
   var productId = req.params.id;
-  Cat.find({}, function(err, cats) {
-    if (err) console.log(err);
-    Product.findOne({ _id: productId }, function(err, p) {
-      if (err) console.log(err);
-
-      res.render("edit-product", {
-        id: p._id,
-        productTitle: p.productTitle,
-        manDate: p.manDate,
-        expDate: p.expDate,
-        color: p.color,
-        imgUrl: p.imgUrl,
-        priceWholesale: p.priceWholesale,
-        priceRetail: p.priceRetail,
-        barCode: p.barCode,
-        sku: p.sku,
-        stockLevel: p.stockLevel,
-        size: p.size,
-        weight: p.weight,
-        category: p.category,
-        productDesc: p.productDesc,
-        categories: cats
-      });
-    });
-  });
+  Cat.find({})
+    .then(cats => {
+      Product.findOne({ _id: productId })
+        .then(p => {
+          res.render("edit-product", {
+            id: p._id,
+            productTitle: p.productTitle,
+            manDate: p.manDate,
+            expDate: p.expDate,
+            color: p.color,
+            imgUrl: p.imgUrl,
+            priceWholesale: p.priceWholesale,
+            priceRetail: p.priceRetail,
+            barCode: p.barCode,
+            sku: p.sku,
+            stockLevel: p.stockLevel,
+            size: p.size,
+            weight: p.weight,
+            catName: p.category,
+            productDesc: p.productDesc,
+            categories: cats
+          });
+        })
+        .catch(err => console.log(err));
+    })
+    .catch(err => console.log(err));
 });
 
-// Update Products
+// Get add-Product form
+router.get("/add-product", (req, res) => {
+  Cat.find({})
+    .then(cats => {
+      res.render("add-product", {
+        cats
+      });
+    })
+    .catch(err => console.log(err));
+});
+
+//handle Add-Product form
+router.post("/add-product", (req, res) => {
+  console.log(req.body);
+  res.redirect("/products/1");
+});
+
+// Update Product Single Product
 router.post("/product-detail/edit/:id", (req, res, next) => {
   var productTitle = req.body.productTitle && req.body.productTitle.trim();
   var manDate = req.body.manDate && req.body.manDate.trim();
@@ -159,6 +177,8 @@ router.post("/product-detail/edit/:id", (req, res, next) => {
   var weight = req.body.weight && req.body.weight.trim();
   var category = req.body.category && req.body.category.trim();
   var productDesc = req.body.productDesc && req.body.productDesc.trim();
+
+  console.log(req.body);
 
   Product.updateOne(
     { _id: req.params.id },
@@ -179,7 +199,7 @@ router.post("/product-detail/edit/:id", (req, res, next) => {
       productDesc: productDesc
     },
 
-    function(err) {
+    err => {
       if (err) console.log(err);
 
       req.flash("success_msg", "Product updated");

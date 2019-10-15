@@ -1,9 +1,8 @@
 <a href="/products/1">Back to Products</a>
 
-<h2>Edit a Product</h2>
-<% include ./partials/messages %>
+<h2>Add a Product</h2>
 
-<form method="post" action="/product-detail/edit/<%= id %>">
+<form method="post" action="/add-product" enctype="multipart/form-data">
   <div class="row product_add">
     <div class="col-md-6">
       <div class="form-group">
@@ -12,7 +11,8 @@
           type="text"
           class="form-control"
           name="productTitle"
-          value="<%= productTitle %>"
+          placeholder="Enter Product title"
+          value="<%= typeof productTitle != 'undefined' ? productTitle : '' %>"
           required
         />
       </div>
@@ -23,7 +23,7 @@
           type="month"
           class="form-control"
           name="manDate"
-          value="<%= manDate %>"
+          value="<%= typeof manDate != 'undefined' ? manDate : '' %>"
         />
       </div>
 
@@ -33,28 +33,29 @@
           type="month"
           class="form-control"
           name="expDate"
-          value="<%= expDate %>"
+          value="<%= typeof expDate != 'undefined' ? expDate : '' %>"
         />
       </div>
 
       <div class="form-group">
-        <label for="exampleSelect1">Color</label>
+        <label for="exampleSelect1">Select Color</label>
         <input
           type="text"
           class="form-control"
           name="color"
-          value="<%= color %>"
+          value="<%= typeof color != 'undefined' ? color : '' %>"
         />
       </div>
 
       <div class="form-row">
         <div class="form-group col-md-6">
-          <label for="exampleSelect1">Image URL</label>
+          <label for="formGroupExampleInput">Image Url</label>
           <input
             type="text"
             class="form-control"
             name="imgUrl"
-            value="<%= imgUrl %>"
+            placeholder="Insert Img Url"
+            value="<%= typeof imgUrl != 'undefined' ? imgUrl : '' %>"
           />
         </div>
       </div>
@@ -66,7 +67,7 @@
             type="number"
             class="form-control"
             name="priceWholesale"
-            value="<%= priceWholesale %>"
+            value="<%= typeof priceWholesale != 'undefined' ? priceWholesale : '' %>"
             required
           />
         </div>
@@ -77,7 +78,7 @@
             type="number"
             class="form-control"
             name="priceRetail"
-            value="<%= priceRetail %>"
+            value="<%= typeof priceRetail != 'undefined' ? priceRetail : '' %>"
           />
         </div>
 
@@ -87,7 +88,7 @@
             type="text"
             class="form-control"
             name="barCode"
-            value="<%= barCode %>"
+            value="<%= typeof barCode != 'undefined' ? barCode : '' %>"
           />
         </div>
 
@@ -97,7 +98,7 @@
             type="number"
             class="form-control"
             name="sku"
-            value="<%= sku %>"
+            value="<%= typeof sku != 'undefined' ? sku : '' %>"
           />
         </div>
 
@@ -107,7 +108,7 @@
             type="number"
             class="form-control"
             name="stockLevel"
-            value="<%= stockLevel %>"
+            value="<%= typeof stockLevel != 'undefined' ? stockLevel : '' %>"
           />
         </div>
       </div>
@@ -122,7 +123,7 @@
             type="number"
             class="form-control"
             name="size"
-            value="<%= size %>"
+            value="<%= typeof size != 'undefined' ? size : '' %>"
           />
         </div>
 
@@ -132,16 +133,15 @@
             type="number"
             class="form-control"
             name="weight"
-            value="<%= weight %>"
+            value="<%= typeof weight != 'undefined' ? weight : '' %>"
           />
         </div>
 
         <div class="form-group col-md-4">
           <label for="formGroupExampleInput">Select Category</label>
           <select name="category">
-            <% categories.forEach(function(c){ %> 
-            <option value="<%= c.title %>" <%= (c.title == catName ) ? 'selected' : '' %> ><%= c.title %>
-            </option>
+            <% cats.forEach(function(c){ %>
+            <option value="<%= c.title %>"><%= c.title %> </option>
             <% }) %>
           </select>
         </div>
@@ -149,13 +149,17 @@
 
       <div class="form-group">
         <label for="exampleFormControlTextarea1">Product Description</label>
-        <textarea class="form-control" name="productDesc" rows="10">
-<%= productDesc %></textarea
-        >
+        <textarea
+          class="form-control"
+          name="productDesc"
+          rows="10"
+          placeholder="Type Something"
+          value="<%= typeof productDesc != 'undefined' ? productDesc : '' %>"
+        ></textarea>
       </div>
 
       <label>
-        <input type="submit" class="button" value="Update" />
+        <input type="submit" class="button" value="Submit" />
       </label>
     </div>
   </div>

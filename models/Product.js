@@ -15,7 +15,7 @@ var ProductSchema = new mongoose.Schema({
   size: { type: String },
   weight: { type: String },
   productDesc: { type: String },
-  cat: { type: String }
+  category: { type: String }
 });
 
 module.exports = mongoose.model("Product", ProductSchema);
