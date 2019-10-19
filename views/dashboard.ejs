@@ -2,8 +2,14 @@
 <p class="lead mb-3">Welcome <%= name %></p>
 <a href="/user/logout" class="btn btn-secondary">Logout</a>
 
+<% include ./partials/messages %>
+<h2>Admin Interface</h2>
 <p><strong>Total Orders:</strong> 78</p>
 
 <p><strong>Total Sales:</strong>90,000</p>
 
 <p><strong>Total Products:</strong><%= totalProducts %></p>
+
+<h2>User Interface</h2>
+<p>Change Username password</p>
+<p>Total Orders: 34</p>

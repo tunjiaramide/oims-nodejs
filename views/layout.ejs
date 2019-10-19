@@ -10,12 +10,13 @@
   </head>
   <body>
     <div class="container">
+      <% if(user) { %>
       <p>
         <a href="/checkout">
           Cart items: <%= (cart) ? cart.length : 0 %>
         </a>
       </p>
-      <%- body %>
+      <% } %> <%- body %>
     </div>
 
     <script

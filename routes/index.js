@@ -3,7 +3,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const Cat = require("../models/Cat");
 const Product = require("../models/Product");
-const { ensureAuthenticated } = require("../config/auth");
+const { ensureAuthenticated, ensureAdmin } = require("../config/auth");
 
 // home route
 router.get("/", (req, res) => {
@@ -116,35 +116,40 @@ router.get("/dashboard", ensureAuthenticated, (req, res) => {
 });
 
 // Edit Product
-router.get("/product-detail/edit/:id", ensureAuthenticated, (req, res) => {
-  var productId = req.params.id;
-  Cat.find({})
-    .then(cats => {
-      Product.findOne({ _id: productId })
-        .then(p => {
-          res.render("edit-product", {
-            id: p._id,
-            productTitle: p.productTitle,
-            manDate: p.manDate,
-            expDate: p.expDate,
-            color: p.color,
-            imgUrl: p.imgUrl,
-            priceWholesale: p.priceWholesale,
-            priceRetail: p.priceRetail,
-            barCode: p.barCode,
-            sku: p.sku,
-            stockLevel: p.stockLevel,
-            size: p.size,
-            weight: p.weight,
-            catName: p.category,
-            productDesc: p.productDesc,
-            categories: cats
-          });
-        })
-        .catch(err => console.log(err));
-    })
-    .catch(err => console.log(err));
-});
+router.get(
+  "/product-detail/edit/:id",
+  ensureAuthenticated,
+  ensureAdmin,
+  (req, res) => {
+    var productId = req.params.id;
+    Cat.find({})
+      .then(cats => {
+        Product.findOne({ _id: productId })
+          .then(p => {
+            res.render("edit-product", {
+              id: p._id,
+              productTitle: p.productTitle,
+              manDate: p.manDate,
+              expDate: p.expDate,
+              color: p.color,
+              imgUrl: p.imgUrl,
+              priceWholesale: p.priceWholesale,
+              priceRetail: p.priceRetail,
+              barCode: p.barCode,
+              sku: p.sku,
+              stockLevel: p.stockLevel,
+              size: p.size,
+              weight: p.weight,
+              catName: p.category,
+              productDesc: p.productDesc,
+              categories: cats
+            });
+          })
+          .catch(err => console.log(err));
+      })
+      .catch(err => console.log(err));
+  }
+);
 
 // Update Product Single Product
 router.post(
