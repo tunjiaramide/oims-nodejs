@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
+const upload = require("../services/img-upload");
 const Cat = require("../models/Cat");
 const Product = require("../models/Product");
 const { ensureAuthenticated, ensureAdmin } = require("../config/auth");
@@ -12,7 +13,7 @@ router.get("/", (req, res) => {
 
 // List all Products with Pagination
 
-router.get("/products/:page", ensureAuthenticated, (req, res) => {
+router.get("/products/:page", (req, res) => {
   var perPage = 20;
   var page = req.params.page || 1;
 
@@ -38,7 +39,7 @@ router.get("/products/:page", ensureAuthenticated, (req, res) => {
 });
 
 //List products by Category
-router.get("/cat/:id", ensureAuthenticated, (req, res) => {
+router.get("/cat/:id", (req, res) => {
   let catName = req.params.id;
   Cat.find({}).then(cats => {
     Product.find({ category: catName }).then(products => {
@@ -51,7 +52,7 @@ router.get("/cat/:id", ensureAuthenticated, (req, res) => {
 });
 
 //get Product details
-router.get("/product-detail/:id", ensureAuthenticated, (req, res, next) => {
+router.get("/product-detail/:id", (req, res, next) => {
   var productId = req.params.id;
   Product.findOne({ _id: productId }).then(product => {
     res.render("product-detail", { product });
@@ -59,7 +60,7 @@ router.get("/product-detail/:id", ensureAuthenticated, (req, res, next) => {
 });
 
 //add cart to session
-router.get("/cart/:id", ensureAuthenticated, (req, res) => {
+router.get("/cart/:id", (req, res) => {
   cartId = req.params.id;
   Product.find({ _id: cartId })
     .then(product => {
@@ -97,7 +98,7 @@ router.get("/cart/:id", ensureAuthenticated, (req, res) => {
     .catch(err => console.log(err));
 });
 
-router.get("/checkout", ensureAuthenticated, (req, res) => {
+router.get("/checkout", (req, res) => {
   res.render("checkout", {
     cart: req.session.cart
   });
@@ -106,7 +107,7 @@ router.get("/checkout", ensureAuthenticated, (req, res) => {
 // Administration Section
 
 // Admin Dasboard
-router.get("/dashboard", ensureAuthenticated, (req, res) => {
+router.get("/dashboard", (req, res) => {
   Product.countDocuments({}).then(c => {
     res.render("dashboard", {
       totalProducts: c,
@@ -116,99 +117,90 @@ router.get("/dashboard", ensureAuthenticated, (req, res) => {
 });
 
 // Edit Product
-router.get(
-  "/product-detail/edit/:id",
-  ensureAuthenticated,
-  ensureAdmin,
-  (req, res) => {
-    var productId = req.params.id;
-    Cat.find({})
-      .then(cats => {
-        Product.findOne({ _id: productId })
-          .then(p => {
-            res.render("edit-product", {
-              id: p._id,
-              productTitle: p.productTitle,
-              manDate: p.manDate,
-              expDate: p.expDate,
-              color: p.color,
-              imgUrl: p.imgUrl,
-              priceWholesale: p.priceWholesale,
-              priceRetail: p.priceRetail,
-              barCode: p.barCode,
-              sku: p.sku,
-              stockLevel: p.stockLevel,
-              size: p.size,
-              weight: p.weight,
-              catName: p.category,
-              productDesc: p.productDesc,
-              categories: cats
-            });
-          })
-          .catch(err => console.log(err));
-      })
-      .catch(err => console.log(err));
-  }
-);
+router.get("/product-detail/edit/:id", (req, res) => {
+  var productId = req.params.id;
+  Cat.find({})
+    .then(cats => {
+      Product.findOne({ _id: productId })
+        .then(p => {
+          res.render("edit-product", {
+            id: p._id,
+            productTitle: p.productTitle,
+            manDate: p.manDate,
+            expDate: p.expDate,
+            color: p.color,
+            imgUrl: p.imgUrl,
+            priceWholesale: p.priceWholesale,
+            priceRetail: p.priceRetail,
+            barCode: p.barCode,
+            sku: p.sku,
+            stockLevel: p.stockLevel,
+            size: p.size,
+            weight: p.weight,
+            catName: p.category,
+            productDesc: p.productDesc,
+            categories: cats
+          });
+        })
+        .catch(err => console.log(err));
+    })
+    .catch(err => console.log(err));
+});
 
 // Update Product Single Product
-router.post(
-  "/product-detail/edit/:id",
-  ensureAuthenticated,
-  (req, res, next) => {
-    var productTitle = req.body.productTitle && req.body.productTitle.trim();
-    var manDate = req.body.manDate && req.body.manDate.trim();
-    var expDate = req.body.expDate && req.body.expDate.trim();
-    var color = req.body.color && req.body.color.trim();
-    var imgUrl = req.body.imgUrl && req.body.imgUrl.trim();
-    var priceWholesale =
-      req.body.priceWholesale && req.body.priceWholesale.trim();
-    var priceRetail = req.body.priceRetail && req.body.priceRetail.trim();
-    var barCode = req.body.barCode && req.body.barCode.trim();
-    var sku = req.body.sku && req.body.sku.trim();
-    var stockLevel = req.body.stockLevel && req.body.stockLevel.trim();
-    var size = req.body.size && req.body.size.trim();
-    var weight = req.body.weight && req.body.weight.trim();
-    var category = req.body.category && req.body.category.trim();
-    var productDesc = req.body.productDesc && req.body.productDesc.trim();
+router.post("/product-detail/edit/:id", (req, res, next) => {
+  var productTitle = req.body.productTitle && req.body.productTitle.trim();
+  var manDate = req.body.manDate && req.body.manDate.trim();
+  var expDate = req.body.expDate && req.body.expDate.trim();
+  var color = req.body.color && req.body.color.trim();
+  var imgUrl = req.body.imgUrl && req.body.imgUrl.trim();
+  var priceWholesale =
+    req.body.priceWholesale && req.body.priceWholesale.trim();
+  var priceRetail = req.body.priceRetail && req.body.priceRetail.trim();
+  var barCode = req.body.barCode && req.body.barCode.trim();
+  var sku = req.body.sku && req.body.sku.trim();
+  var stockLevel = req.body.stockLevel && req.body.stockLevel.trim();
+  var size = req.body.size && req.body.size.trim();
+  var weight = req.body.weight && req.body.weight.trim();
+  var category = req.body.category && req.body.category.trim();
+  var productDesc = req.body.productDesc && req.body.productDesc.trim();
 
-    var productId = mongoose.Types.ObjectId(req.params.id);
-    if (mongoose.Types.ObjectId.isValid(productId)) {
-      Product.updateOne(
-        { _id: productId },
-        {
-          productTitle: productTitle,
-          manDate: manDate,
-          expDate: expDate,
-          color: color,
-          imgUrl: imgUrl,
-          priceWholesale: priceWholesale,
-          priceRetail: priceRetail,
-          barCode: barCode,
-          sku: sku,
-          stockLevel: stockLevel,
-          size: size,
-          weight: weight,
-          category: category,
-          productDesc: productDesc
-        },
-        err => {
-          if (err) console.log(err);
+  var productId = mongoose.Types.ObjectId(req.params.id);
+  if (mongoose.Types.ObjectId.isValid(productId)) {
+    Product.updateOne(
+      { _id: productId },
+      {
+        productTitle: productTitle,
+        manDate: manDate,
+        expDate: expDate,
+        color: color,
+        imgUrl: imgUrl,
+        priceWholesale: priceWholesale,
+        priceRetail: priceRetail,
+        barCode: barCode,
+        sku: sku,
+        stockLevel: stockLevel,
+        size: size,
+        weight: weight,
+        category: category,
+        productDesc: productDesc
+      },
+      err => {
+        if (err) console.log(err);
 
-          req.flash("success_msg", "Product updated");
-          res.redirect("/products/1");
-        }
-      );
-    } else {
-      console.log("Product ID not valid");
-      req.flash("error_msg", "Product not updated");
-      res.redirect("/products/1");
-    }
+        req.flash("success_msg", "Product updated");
+        res.redirect("/products/1");
+      }
+    );
+  } else {
+    console.log("Product ID not valid");
+    req.flash("error_msg", "Product not updated");
+    res.redirect("/products/1");
   }
-);
+});
 
 // Get add-Product form
-router.get("/add-product", ensureAuthenticated, (req, res) => {
+router.get("/add-product", (req, res) => {
   Cat.find({})
     .then(cats => {
       res.render("add-product", {
@@ -219,10 +211,27 @@ router.get("/add-product", ensureAuthenticated, (req, res) => {
 });
 
 //handle Add-Product form
-router.post("/add-product", ensureAuthenticated, (req, res) => {
+router.post("/add-product", (req, res) => {
   console.log(req.body);
   req.flash("error_msg", "Product Not added yet");
   res.redirect("/products/1");
+});
+
+//get image upload form
+router.get("/img-upload", (req, res) => {
+  res.render("img-upload");
+});
+
+//handle image upload
+
+const singleUpload = upload.single("imgUrl");
+
+router.post("/img-upload", (req, res) => {
+  singleUpload(req, res, err => {
+    if (err) console.log(err);
+    console.log(req.file);
+    res.redirect("back");
+  });
 });
 
 module.exports = router;
