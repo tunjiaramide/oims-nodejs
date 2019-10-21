@@ -1,26 +1,22 @@
 <h2>Upload Image</h2>
-
-<!-- <form method="post" action="/admin/products" enctype="multipart/form-data">
-  <div class="row product_add">
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <input type="file" class="form-control" name="imgUrl" />
-      </div>
-    </div>
-
-    <label>
-      <input type="submit" class="button" value="Submit" />
-    </label>
-  </div>
-</form> -->
-
+<% include ./partials/messages %>
 <form method="post" action="/img-upload" enctype="multipart/form-data">
   <div class="form-group">
     <label for="exampleFormControlFile1">File Image Upload</label>
-    <input type="file" class="form-control-file" name="imgUrl" />
+    <input
+      type="file"
+      class="form-control-file"
+      name="imgUrl"
+      accept=".gif,.jpg,.jpeg,.png"
+    />
   </div>
 
   <div class="form-group">
     <input type="submit" class="button" value="Submit" />
   </div>
 </form>
+
+<h3>Image Url:</h3>
+<p><%= typeof imgUrl != 'undefined' ? imgUrl : '' %></p>
+<h3>Image Preview</h3>
+<img src="<%= imgUrl %>" />

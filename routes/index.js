@@ -229,8 +229,10 @@ const singleUpload = upload.single("imgUrl");
 router.post("/img-upload", (req, res) => {
   singleUpload(req, res, err => {
     if (err) console.log(err);
-    console.log(req.file);
-    res.redirect("back");
+    req.flash("success_msg", "File successfully uploaded");
+    res.render("img-upload", {
+      imgUrl: req.file.location
+    });
   });
 });
 
