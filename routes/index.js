@@ -53,7 +53,7 @@ router.get("/cat/:id", (req, res) => {
 
 //get Product details
 router.get("/product-detail/:id", (req, res, next) => {
-  var productId = req.params.id;
+  let productId = req.params.id;
   Product.findOne({ _id: productId }).then(product => {
     res.render("product-detail", { product });
   });
@@ -61,7 +61,7 @@ router.get("/product-detail/:id", (req, res, next) => {
 
 //add cart to session
 router.get("/cart/:id", (req, res) => {
-  cartId = req.params.id;
+  let cartId = req.params.id;
   Product.find({ _id: cartId })
     .then(product => {
       if (typeof req.session.cart == "undefined") {
@@ -99,15 +99,50 @@ router.get("/cart/:id", (req, res) => {
 });
 
 router.get("/checkout", (req, res) => {
-  res.render("checkout", {
-    cart: req.session.cart
-  });
+  if (req.session.cart && req.session.cart.length == 0) {
+    delete req.session.cart;
+    res.redirect("/checkout");
+  } else {
+    res.render("checkout", {
+      cart: req.session.cart
+    });
+  }
 });
 
 router.get("/clearcart", (req, res) => {
   delete req.session.cart;
   req.flash("success_msg", "Cart cleared");
   res.redirect("/products/1");
+});
+
+router.get("/cart/update/:id", (req, res) => {
+  let cartId = req.params.id;
+  let cart = req.session.cart;
+  let action = req.query.action;
+
+  for (let i = 0; i < cart.length; i++) {
+    if (cart[i].id === cartId) {
+      switch (action) {
+        case "add":
+          cart[i].qty++;
+          break;
+        case "delete":
+          cart[i].qty--;
+          if (cart[i].qty < 1) cart.splice(i, 1);
+          break;
+        case "clear":
+          cart.splice(i, 1);
+          if (cart.length === 0) delete req.session.cart;
+          break;
+        default:
+          console.log("Update problem");
+          break;
+      }
+      break;
+    }
+  }
+  req.flash("success_msg", "Cart updated");
+  res.redirect("/checkout");
 });
 
 // Administration Section

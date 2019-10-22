@@ -10,6 +10,12 @@
   </head>
   <body>
     <div class="container">
+      <p>
+        <a href="/checkout">
+          Cart items: <%= (cart) ? cart.length : 0 %>
+        </a>
+      </p>
+
       <% if(user) { %>
       <p>
         <a href="/checkout">
