@@ -104,6 +104,12 @@ router.get("/checkout", (req, res) => {
   });
 });
 
+router.get("/clearcart", (req, res) => {
+  delete req.session.cart;
+  req.flash("success_msg", "Cart cleared");
+  res.redirect("/products/1");
+});
+
 // Administration Section
 
 // Admin Dasboard
@@ -222,10 +228,8 @@ router.get("/img-upload", (req, res) => {
   res.render("img-upload");
 });
 
-//handle image upload
-
+//handle image uploa
 const singleUpload = upload.single("imgUrl");
-
 router.post("/img-upload", (req, res) => {
   singleUpload(req, res, err => {
     if (err) console.log(err);
