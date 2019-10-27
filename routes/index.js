@@ -5,6 +5,7 @@ const upload = require("../services/img-upload");
 const Cat = require("../models/Cat");
 const Product = require("../models/Product");
 const Order = require("../models/Order");
+const shortId = require("shortid");
 const { ensureAuthenticated, ensureAdmin } = require("../config/auth");
 
 // home route
@@ -14,7 +15,7 @@ router.get("/", (req, res) => {
 
 // List all Products with Pagination
 
-router.get("/products/:page", (req, res) => {
+router.get("/products/:page", ensureAuthenticated, (req, res) => {
   var perPage = 20;
   var page = req.params.page || 1;
 
@@ -40,7 +41,7 @@ router.get("/products/:page", (req, res) => {
 });
 
 //List products by Category
-router.get("/cat/:id", (req, res) => {
+router.get("/cat/:id", ensureAuthenticated, (req, res) => {
   let catName = req.params.id;
   Cat.find({}).then(cats => {
     Product.find({ category: catName }).then(products => {
@@ -53,7 +54,7 @@ router.get("/cat/:id", (req, res) => {
 });
 
 //get Product details
-router.get("/product-detail/:id", (req, res, next) => {
+router.get("/product-detail/:id", ensureAuthenticated, (req, res, next) => {
   let productId = req.params.id;
   Product.findOne({ _id: productId }).then(product => {
     res.render("product-detail", { product });
@@ -61,7 +62,7 @@ router.get("/product-detail/:id", (req, res, next) => {
 });
 
 //add cart to session
-router.get("/cart/:id", (req, res) => {
+router.get("/cart/:id", ensureAuthenticated, (req, res) => {
   let cartId = req.params.id;
   Product.find({ _id: cartId })
     .then(product => {
@@ -99,7 +100,7 @@ router.get("/cart/:id", (req, res) => {
     .catch(err => console.log(err));
 });
 
-router.get("/checkout", (req, res) => {
+router.get("/checkout", ensureAuthenticated, (req, res) => {
   if (req.session.cart && req.session.cart.length == 0) {
     delete req.session.cart;
     res.redirect("/checkout");
@@ -110,13 +111,13 @@ router.get("/checkout", (req, res) => {
   }
 });
 
-router.get("/clearcart", (req, res) => {
+router.get("/clearcart", ensureAuthenticated, (req, res) => {
   delete req.session.cart;
   req.flash("success_msg", "Cart cleared");
   res.redirect("/products/1");
 });
 
-router.get("/cart/update/:id", (req, res) => {
+router.get("/cart/update/:id", ensureAuthenticated, (req, res) => {
   let cartId = req.params.id;
   let cart = req.session.cart;
   let action = req.query.action;
@@ -147,22 +148,27 @@ router.get("/cart/update/:id", (req, res) => {
 });
 
 //get order
-router.get("/order", (req, res) => {
+router.get("/order", ensureAuthenticated, (req, res) => {
   let cartItems = req.session.cart;
-  console.log(cartItems);
   res.render("order", {
     cartItems
   });
 });
 
 //handle order
-router.post("/order", (req, res) => {
+router.post("/order", ensureAuthenticated, (req, res) => {
   let productItems = req.session.cart;
-  let { paymentChoice, totalAmount, userName } = req.body;
+  let { paymentChoice, totalAmount } = req.body;
+  let userName = req.user.name;
   let deliveryAddress = "No 16, Abuja Lagos";
+  let user = req.user;
+  let invoiceNumber = shortId.generate();
+  console.log(invoiceNumber);
 
   let newOrder = Order({
+    user,
     userName,
+    invoiceNumber,
     deliveryAddress,
     productItems,
     totalAmount,
@@ -176,8 +182,16 @@ router.post("/order", (req, res) => {
   });
 });
 
-router.get("/payment-invoice", (req, res) => {
-  res.render("payment-invoice");
+router.get("/payment-invoice", ensureAuthenticated, (req, res) => {
+  let UserId = req.user._id;
+  Order.find({ user: UserId })
+    .then(orders => {
+      let lastOrder = orders[orders.length - 1];
+      res.render("payment-invoice", {
+        order: lastOrder
+      });
+    })
+    .catch(err => console.log(err));
 });
 
 // Administration Section

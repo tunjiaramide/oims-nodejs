@@ -1,1 +1,19 @@
 <h2>Payment Generated Invoice</h2>
+
+<ul>
+  <li>#<%= order.invoiceNumber.toUpperCase() %></li>
+  <li><%= order.userName %></li>
+  <li><%= order.totalAmount %></li>
+  <li><%= order.paymentChoice %></li>
+</ul>
+
+<% if (order.paymentChoice === 'bankPayment') { %>
+<h2>Bank Details</h2>
+<p>Diamond Bank</p>
+<p>0045782939</p>
+<p>Pets Mart Nigeria</p>
+<%} else { %>
+<p><a href="#">Please Pay with your Credit Card</a></p>
+<%} %>
+
+<a href="/products/1">Back to Products</a>
