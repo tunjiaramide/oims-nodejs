@@ -18,7 +18,7 @@ cart.qty * cart.price; %> <% total += subTotal %>
 <p>Total: <%= total %></p>
 
 <h3>Choose Payment Option</h3>
-<form method="post" action="/complete-order">
+<form method="post" action="/order">
   <div class="form-group">
     <label for="paymentChoice">Choose Payment Choice</label>
     <select name="paymentChoice">
@@ -27,6 +27,8 @@ cart.qty * cart.price; %> <% total += subTotal %>
     </select>
   </div>
 
+  <input type="hidden" name="totalAmount" value="<%= total %>" />
+  <input type="hidden" name="userName" value="Aramide Adetunji" />
   <label>
     <input type="submit" class="button" value="Complete Order" />
   </label>

@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const upload = require("../services/img-upload");
 const Cat = require("../models/Cat");
 const Product = require("../models/Product");
+const Order = require("../models/Order");
 const { ensureAuthenticated, ensureAdmin } = require("../config/auth");
 
 // home route
@@ -145,13 +146,38 @@ router.get("/cart/update/:id", (req, res) => {
   res.redirect("/checkout");
 });
 
-//handle order
+//get order
 router.get("/order", (req, res) => {
   let cartItems = req.session.cart;
   console.log(cartItems);
   res.render("order", {
     cartItems
   });
+});
+
+//handle order
+router.post("/order", (req, res) => {
+  let productItems = req.session.cart;
+  let { paymentChoice, totalAmount, userName } = req.body;
+  let deliveryAddress = "No 16, Abuja Lagos";
+
+  let newOrder = Order({
+    userName,
+    deliveryAddress,
+    productItems,
+    totalAmount,
+    paymentChoice
+  });
+
+  newOrder.save(err => {
+    if (err) console.log(err);
+    delete req.session.cart;
+    res.redirect("/payment-invoice");
+  });
+});
+
+router.get("/payment-invoice", (req, res) => {
+  res.render("payment-invoice");
 });
 
 // Administration Section
