@@ -145,6 +145,15 @@ router.get("/cart/update/:id", (req, res) => {
   res.redirect("/checkout");
 });
 
+//handle order
+router.get("/order", (req, res) => {
+  let cartItems = req.session.cart;
+  console.log(cartItems);
+  res.render("order", {
+    cartItems
+  });
+});
+
 // Administration Section
 
 // Admin Dasboard

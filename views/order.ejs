@@ -1,0 +1,35 @@
+<h2>Review Your Order</h2>
+
+<h3>Users Details</h3>
+<p>Adetunji Aramide</p>
+
+<p>Delivers to</p>
+<p>No 15 Adebayo Odutayo Street, Ifedayo, Ojodu Berger</p>
+
+<h3>Total Orders</h3>
+<% let total = 0; %> <% cartItems.forEach(cart => { %> <% let subTotal =
+cart.qty * cart.price; %> <% total += subTotal %>
+<ul>
+  <li>Title: <%= cart.title %></li>
+  <li>Qty: <%= cart.qty %></li>
+  <li>Price: <%= cart.price %></li>
+</ul>
+<% }) %>
+<p>Total: <%= total %></p>
+
+<h3>Choose Payment Option</h3>
+<form method="post" action="/complete-order">
+  <div class="form-group">
+    <label for="paymentChoice">Choose Payment Choice</label>
+    <select name="paymentChoice">
+      <option value="bankPayment">Bank Payment</option>
+      <option value="creditPayment">Credit Card Payment</option>
+    </select>
+  </div>
+
+  <label>
+    <input type="submit" class="button" value="Complete Order" />
+  </label>
+  <br />
+  <a href="/checkout">Review Order</a>
+</form>
