@@ -13,6 +13,9 @@ router.get("/", (req, res) => {
   res.render("index");
 });
 
+router.get("/thank-you", (req, res) => {
+  res.render("thank-you");
+});
 // List all Products with Pagination
 
 router.get("/products/:page", ensureAuthenticated, (req, res) => {
@@ -188,7 +191,8 @@ router.get("/payment-invoice", ensureAuthenticated, (req, res) => {
     .then(orders => {
       let lastOrder = orders[orders.length - 1];
       res.render("payment-invoice", {
-        order: lastOrder
+        order: lastOrder,
+        user: req.user
       });
     })
     .catch(err => console.log(err));
@@ -197,11 +201,25 @@ router.get("/payment-invoice", ensureAuthenticated, (req, res) => {
 // Administration Section
 
 // Admin Dasboard
-router.get("/dashboard", (req, res) => {
+// router.get("/dashboard", (req, res) => {
+//   Product.countDocuments({}).then(c => {
+//     res.render("dashboard", {
+//       totalProducts: c,
+//       name: req.user.name
+//     });
+//   });
+// });
+router.get("/dashboard", async (req, res) => {
+  let UserId = req.user._id;
+  let allOrders = await Order.find({});
+  let singleOrders = await Order.find({ user: UserId });
+
   Product.countDocuments({}).then(c => {
     res.render("dashboard", {
       totalProducts: c,
-      name: req.user.name
+      name: req.user.name,
+      allOrders,
+      singleOrders
     });
   });
 });
@@ -312,7 +330,7 @@ router.get("/img-upload", (req, res) => {
   res.render("img-upload");
 });
 
-//handle image uploa
+//handle image upload
 const singleUpload = upload.single("imgUrl");
 router.post("/img-upload", (req, res) => {
   singleUpload(req, res, err => {

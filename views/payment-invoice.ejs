@@ -1,5 +1,4 @@
 <h2>Payment Generated Invoice</h2>
-
 <ul>
   <li>#<%= order.invoiceNumber.toUpperCase() %></li>
   <li><%= order.userName %></li>
@@ -14,6 +13,41 @@
 <p>Pets Mart Nigeria</p>
 <%} else { %>
 <p><a href="#">Please Pay with your Credit Card</a></p>
-<%} %>
+<form>
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+  <button type="button" onclick="payWithPaystack()">Pay With Paystack</button>
+</form>
 
-<a href="/products/1">Back to Products</a>
+<%} %> <% var amount = order.totalAmount * 100 %>
+
+<a href="/products/1">Back to Products</a> <br />
+<a href="/dashboard">Back to Profile</a>
+
+<!-- place below the html form -->
+<script>
+  function payWithPaystack() {
+    var handler = PaystackPop.setup({
+      key: "pk_test_88562c3403ead900f98870a7797b5a73618eaa34",
+      email: "<%= user.email %>",
+      amount: "<%= amount %>",
+      ref: "" + Math.floor(Math.random() * 1000000000 + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+      metadata: {
+        custom_fields: [
+          {
+            display_name: "Mobile Number",
+            variable_name: "mobile_number",
+            value: "+2348012345678"
+          }
+        ]
+      },
+      callback: function(response) {
+        alert("success. transaction ref is " + response.reference);
+        window.location = "http://localhost:5000/thank-you";
+      },
+      onClose: function() {
+        alert("window closed");
+      }
+    });
+    handler.openIframe();
+  }
+</script>

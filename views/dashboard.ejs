@@ -5,13 +5,24 @@
 <% include ./partials/messages %>
 <h2>Admin Interface</h2>
 <p><strong>Total Orders:</strong> 78</p>
+<% allOrders.forEach(order => { %>
+<ul>
+  <li><%= order.userName %></li>
+  <li><%= order.invoiceNumber %></li>
+</ul>
+<% }) %>
 
 <p><strong>Total Sales:</strong>90,000</p>
 
 <p><strong>Total Products:</strong><%= totalProducts %></p>
 
 <h2>User Interface</h2>
-<p>Change Username password</p>
-<p>Total Orders: 34</p>
+
+<h3>User Orders</h3>
+<% singleOrders.forEach(order => { %>
+<ul>
+  <li><%= order.invoiceNumber %></li>
+</ul>
+<% }) %>
 
 <a href="/products/1">Browse Products</a>
