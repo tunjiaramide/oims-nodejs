@@ -75,6 +75,7 @@ router.get("/cart/:id", ensureAuthenticated, (req, res) => {
           title: product[0].productTitle,
           qty: 1,
           price: product[0].priceWholesale,
+          barCode: product[0].barCode,
           id: product[0]._id
         });
       } else {
@@ -93,6 +94,7 @@ router.get("/cart/:id", ensureAuthenticated, (req, res) => {
             title: product[0].productTitle,
             qty: 1,
             price: product[0].priceWholesale,
+            barCode: product[0].barCode,
             id: product[0]._id
           });
         }

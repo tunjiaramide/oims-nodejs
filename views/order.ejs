@@ -1,36 +1,70 @@
-<h2>Review Your Order</h2>
+<% include ./partials/top-bar %>
 
-<h3>Users Details</h3>
-<p>Adetunji Aramide</p>
+<div class="container-fluid">
+  <div class="row">
+    <% include ./partials/side-bar %>
 
-<p>Delivers to</p>
-<p>No 15 Adebayo Odutayo Street, Ifedayo, Ojodu Berger</p>
+    <!-- content area -->
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+      <div class="content">
+        <% include ./partials/messages %>
+        <h2 class="mb-4">Finalize Your Order</h2>
+        <p><strong>Name:</strong> <br /><%= user.name %></p>
+        <p>
+          <strong>Deliver Address:</strong> <br />
+          No 15 Adebayo Odutayo Street, Ifedayo, Ojodu Berger
+        </p>
 
-<h3>Total Orders</h3>
-<% let total = 0; %> <% cartItems.forEach(cart => { %> <% let subTotal =
-cart.qty * cart.price; %> <% total += subTotal %>
-<ul>
-  <li>Title: <%= cart.title %></li>
-  <li>Qty: <%= cart.qty %></li>
-  <li>Price: <%= cart.price %></li>
-</ul>
-<% }) %>
-<p>Total: <%= total %></p>
+        <h3 class="mt-5">Total Orders</h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Product Title</th>
+              <th scope="col">Qty</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% let total = 0; %> <% cartItems.forEach(cart => { %> <% let
+            subTotal = cart.qty * cart.price; %> <% total += subTotal %>
 
-<h3>Choose Payment Option</h3>
-<form method="post" action="/order">
-  <div class="form-group">
-    <label for="paymentChoice">Choose Payment Choice</label>
-    <select name="paymentChoice">
-      <option value="bankPayment">Bank Payment</option>
-      <option value="creditPayment">Credit Card Payment</option>
-    </select>
+            <tr>
+              <td><%= cart.title %></td>
+              <td><%= cart.qty %></td>
+              <td>N<%= cart.price %></td>
+            </tr>
+            <% }) %>
+
+            <tr>
+              <td><strong>TOTAL:</strong></td>
+              <td></td>
+              <td>N<%= total %></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Choose Payment Option</h3>
+        <form method="post" action="/order">
+          <div class="form-group">
+            <label for="paymentChoice">Payment Choice</label>
+            <select name="paymentChoice">
+              <option value="bankPayment">Bank Payment</option>
+              <option value="creditPayment">Credit Card Payment</option>
+            </select>
+          </div>
+          <input type="hidden" name="totalAmount" value="<%= total %>" />
+
+          <label>
+            <input
+              type="submit"
+              class="btn btn-success"
+              value="Complete Order"
+            />
+          </label>
+          <a class="btn btn-info" href="/checkout">Review Order</a>
+        </form>
+      </div>
+    </main>
+    <!-- end of content area -->
   </div>
-
-  <input type="hidden" name="totalAmount" value="<%= total %>" />
-  <label>
-    <input type="submit" class="button" value="Complete Order" />
-  </label>
-  <br />
-  <a href="/checkout">Review Order</a>
-</form>
+</div>

@@ -1,45 +1,81 @@
-<h2>Checkout</h2>
-<a href="/products/1">All Products</a>
-<% include ./partials/messages %> <% if (cart) { %>
+<% include ./partials/top-bar %>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Product Title</th>
-      <th scope="col">Qty</th>
-      <th>Price</th>
-      <th>BarCode</th>
-      <th></th>
-      <th>Sub Total</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% var total = 0; %> <% cart.forEach(function(c){ let subTotal = c.qty *
-    c.price; %><% total += subTotal %>
+<div class="container-fluid">
+  <div class="row">
+    <% include ./partials/side-bar %>
 
-    <tr>
-      <td><%= c.title %></td>
-      <td><%= c.qty %></td>
-      <td><%= c.price %></td>
-      <td><%= c.barCode %></td>
-      <td>
-        <a href="/cart/update/<%= c.id %>?action=add">+</a>&nbsp;
-        <a href="/cart/update/<%= c.id %>?action=delete">-</a>&nbsp;
-        <a href="/cart/update/<%= c.id %>?action=clear">clear</a>&nbsp;
-      </td>
-      <td><%= subTotal %></td>
-    </tr>
-    <% }) %>
-    <tr>
-      <td><strong>Total: N <%= total %> naira</strong></td>
-    </tr>
-    <tr>
-      <td><a href="/clearcart">Clear cart</a></td>
-      <td><a href="/order">Buy Now</a></td>
-    </tr>
-  </tbody>
-</table>
+    <!-- content area -->
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+      <div class="content">
+        <% include ./partials/messages %>
+        <a href="/products/1">Back to All Products</a>
 
-<% } else { %>
-<p>No Products in the cart, add products</p>
-<%}%>
+        <h2 class="mt-3">Checkout</h2>
+        <% if (cart) { %>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Product Title</th>
+              <th scope="col">Qty</th>
+              <th>Price</th>
+              <th>BarCode</th>
+              <th>update qty</th>
+              <th>Item Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% var total = 0; %> <% cart.forEach(function(c){ let subTotal =
+            c.qty * c.price; %><% total += subTotal %>
+
+            <tr>
+              <td><%= c.title %></td>
+              <td><%= c.qty %></td>
+              <td>N<%= c.price %></td>
+              <td><%= c.barCode %></td>
+              <td>
+                <a
+                  class="btn btn-primary btn-sm"
+                  href="/cart/update/<%= c.id %>?action=add"
+                  >+</a
+                >&nbsp;
+                <a
+                  class="btn btn-dark btn-sm"
+                  href="/cart/update/<%= c.id %>?action=delete"
+                  >-</a
+                >&nbsp;
+                <a
+                  class="btn btn-danger btn-sm"
+                  href="/cart/update/<%= c.id %>?action=clear"
+                  >clear</a
+                >&nbsp;
+              </td>
+              <td>N<%= subTotal %></td>
+            </tr>
+            <% }) %>
+            <tr>
+              <td><strong>Total:</strong></td>
+              <td colspan="4"></td>
+              <td><strong>N<%= total %></strong></td>
+            </tr>
+            <tr>
+              <td colspan="4"></td>
+              <td>
+                <a class="btn btn-danger btn-sm" href="/clearcart"
+                  >Clear cart</a
+                >
+              </td>
+              <td>
+                <a class="btn btn-success btn-sm" href="/order">Buy Now</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <% } else { %>
+        <p>No Products in the cart, <a href="/products/1">Go to Products</a></p>
+        <%}%>
+      </div>
+    </main>
+    <!-- end of content area -->
+  </div>
+</div>

@@ -1,12 +1,41 @@
-<a href="/products/1">Back to all Products</a>
-<h1>Single Product</h1>
-<% include ./partials/messages %>
-<h2><%= product.productTitle %></h2>
-<p><%= product.productDesc %></p>
+<% include ./partials/top-bar %>
 
-<h5><%= product.priceWholesale %></h5>
-<p>Category: <%= product.category %></p>
+<div class="container-fluid">
+  <div class="row">
+    <% include ./partials/side-bar %>
 
-<a href="/cart/<%= product._id %>">Add to Cart</a> <br />
+    <!-- content area -->
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+      <div class="content">
+        <% include ./partials/messages %>
+        <span>
+          <a href="/products/1">Back to All Products</a>
+        </span>
 
-<a href="/product-detail/edit/<%= product._id %>">Edit Product</a>
+        <div class="row product_detail mt-2">
+          <div class="product_cover col-md-6">
+            <% if (product.productTitle == '') { %>
+            <img src="<%= p.productTitle %>" />
+            <% } else { %>
+            <img src="https://place-hold.it/450x450" />
+            <% } %>
+          </div>
+
+          <div class="col-md-6">
+            <h3><%= product.productTitle %></h3>
+
+            <h4>Product Details</h4>
+            <p><%= product.productDesc %></p>
+            <h5>N<%= product.priceWholesale %></h5>
+            <p><strong>BarCode:</strong> <%= product.barCode %></p>
+            <div class="cart">
+              <a href="/cart/<%= product._id %>">Add to Cart</a>
+              <a href="/product-detail/edit/<%= product._id %>">Edit Product</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- end of content area -->
+  </div>
+</div>
