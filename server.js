@@ -1,5 +1,6 @@
 const express = require("express");
 const expressLayout = require("express-ejs-layouts");
+const path = require("path");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const flash = require("connect-flash");
@@ -25,6 +26,7 @@ mongoose
 
 //set view engine
 app.use(expressLayout);
+app.use(express.static(path.join(__dirname, "public")));
 app.set("view engine", "ejs");
 
 //bodyParser
