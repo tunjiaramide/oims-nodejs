@@ -1,32 +1,43 @@
-<h1>List of all Products of Categories</h1>
+<% include ./partials/top-bar %>
+<div class="container-fluid">
+  <div class="row">
+    <% include ./partials/side-bar %>
 
-<% include ./partials/messages %>
+    <!-- content area -->
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+      <div class="content">
+        <% include ./partials/messages %>
+        <div>
+          <ul class="product_cat list-inline">
+            <li class="list-inline-item"><a href="/products/1">All</a></li>
+            <% cats.forEach(cat => { %>
+            <li class="list-inline-item">
+              <a href="/cat/<%= cat.title %>"><%= cat.title %></a>
+            </li>
+            <% }) %>
+          </ul>
+        </div>
 
-<h2>Categories</h2>
-<ul>
-  <li><a href="/products/1">All</a></li>
-  <% cats.forEach(cat => { %>
-  <li><a href="/cat/<%= cat.title %>"><%= cat.title %></a></li>
-  <% }) %>
-</ul>
-
-<h2><a href="/">Add a Product</a></h2>
-
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">IMG</th>
-      <th scope="col">Product Title</th>
-      <th>Price</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% products.forEach(function(p){ %>
-    <tr>
-      <td><img src="#" /></td>
-      <td><a href="/product-detail/<%= p._id %>"><%= p.productTitle %></a></td>
-      <td><%= p.priceWholesale %></td>
-    </tr>
-    <% }) %>
-  </tbody>
-</table>
+        <div class="row products justify-content-space-between;">
+          <% products.forEach(function(p){ %>
+          <div class="box col-md-2">
+            <div class="product_cover">
+              <% if (p.productTitle == '') { %>
+              <img src="<%= p.productTitle %>" />
+              <% } else { %>
+              <img src="https://place-hold.it/180x180" />
+              <% } %>
+            </div>
+            <h4><%= p.productTitle %></h4>
+            <h5>N<%= p.priceWholesale %></h5>
+            <div class="cart">
+              <a href="/product-detail/<%= p._id %>">View Details</a>
+            </div>
+          </div>
+          <% }) %>
+        </div>
+      </div>
+    </main>
+    <!-- end of content area -->
+  </div>
+</div>

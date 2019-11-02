@@ -1,28 +1,36 @@
-<h2>Dashboard</h2>
-<p class="lead mb-3">Welcome <%= name %></p>
-<a href="/user/logout" class="btn btn-secondary">Logout</a>
+<% include ./partials/top-bar %>
 
-<% include ./partials/messages %>
-<h2>Admin Interface</h2>
-<p><strong>Total Orders:</strong> 78</p>
-<% allOrders.forEach(order => { %>
-<ul>
-  <li><%= order.userName %></li>
-  <li><%= order.invoiceNumber %></li>
-</ul>
-<% }) %>
+<div class="container-fluid">
+  <div class="row">
+    <% include ./partials/side-bar %>
 
-<p><strong>Total Sales:</strong>90,000</p>
+    <!-- content area -->
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+      <h2>Dashboard</h2>
+      <div>
+        <% include ./partials/messages %>
+        <p><strong>Total Orders:</strong> 78</p>
+        <% allOrders.forEach(order => { %>
+        <ul>
+          <li><%= order.userName %></li>
+          <li><%= order.invoiceNumber %></li>
+        </ul>
+        <% }) %>
 
-<p><strong>Total Products:</strong><%= totalProducts %></p>
+        <p><strong>Total Sales:</strong>90,000</p>
 
-<h2>User Interface</h2>
+        <p><strong>Total Products:</strong><%= totalProducts %></p>
 
-<h3>User Orders</h3>
-<% singleOrders.forEach(order => { %>
-<ul>
-  <li><%= order.invoiceNumber %></li>
-</ul>
-<% }) %>
+        <h2>User Interface</h2>
 
-<a href="/products/1">Browse Products</a>
+        <h3>User Orders</h3>
+        <% singleOrders.forEach(order => { %>
+        <ul>
+          <li><%= order.invoiceNumber %></li>
+        </ul>
+        <% }) %>
+      </div>
+    </main>
+    <!-- end of content area -->
+  </div>
+</div>

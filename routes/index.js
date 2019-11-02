@@ -19,7 +19,7 @@ router.get("/thank-you", (req, res) => {
 // List all Products with Pagination
 
 router.get("/products/:page", ensureAuthenticated, (req, res) => {
-  var perPage = 20;
+  var perPage = 50;
   var page = req.params.page || 1;
 
   Cat.find({}).then(cats => {
@@ -200,17 +200,8 @@ router.get("/payment-invoice", ensureAuthenticated, (req, res) => {
 
 // Administration Section
 
-// Admin Dasboard
-// router.get("/dashboard", (req, res) => {
-//   Product.countDocuments({}).then(c => {
-//     res.render("dashboard", {
-//       totalProducts: c,
-//       name: req.user.name
-//     });
-//   });
-// });
-router.get("/dashboard", async (req, res) => {
-  let UserId = req.user._id;
+router.get("/dashboard", ensureAuthenticated, async (req, res) => {
+  let UserId = await req.user._id;
   let allOrders = await Order.find({});
   let singleOrders = await Order.find({ user: UserId });
 
@@ -225,7 +216,7 @@ router.get("/dashboard", async (req, res) => {
 });
 
 // Edit Product
-router.get("/product-detail/edit/:id", (req, res) => {
+router.get("/product-detail/edit/:id", ensureAdmin, (req, res) => {
   var productId = req.params.id;
   Cat.find({})
     .then(cats => {
@@ -256,7 +247,7 @@ router.get("/product-detail/edit/:id", (req, res) => {
 });
 
 // Update Product Single Product
-router.post("/product-detail/edit/:id", (req, res, next) => {
+router.post("/product-detail/edit/:id", ensureAdmin, (req, res, next) => {
   var productTitle = req.body.productTitle && req.body.productTitle.trim();
   var manDate = req.body.manDate && req.body.manDate.trim();
   var expDate = req.body.expDate && req.body.expDate.trim();
@@ -308,7 +299,7 @@ router.post("/product-detail/edit/:id", (req, res, next) => {
 });
 
 // Get add-Product form
-router.get("/add-product", (req, res) => {
+router.get("/add-product", ensureAdmin, (req, res) => {
   Cat.find({})
     .then(cats => {
       res.render("add-product", {
@@ -319,20 +310,20 @@ router.get("/add-product", (req, res) => {
 });
 
 //handle Add-Product form
-router.post("/add-product", (req, res) => {
+router.post("/add-product", ensureAdmin, (req, res) => {
   console.log(req.body);
   req.flash("error_msg", "Product Not added yet");
   res.redirect("/products/1");
 });
 
 //get image upload form
-router.get("/img-upload", (req, res) => {
+router.get("/img-upload", ensureAdmin, (req, res) => {
   res.render("img-upload");
 });
 
 //handle image upload
 const singleUpload = upload.single("imgUrl");
-router.post("/img-upload", (req, res) => {
+router.post("/img-upload", ensureAdmin, (req, res) => {
   singleUpload(req, res, err => {
     if (err) console.log(err);
     req.flash("success_msg", "File successfully uploaded");

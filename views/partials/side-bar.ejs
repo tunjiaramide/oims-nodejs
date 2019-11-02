@@ -1,0 +1,43 @@
+<nav class="col-md-2 d-none d-md-block sidebar">
+  <div class="sidebar-sticky">
+    <h6
+      class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-4"
+    >
+      <span>Welcome <%= user.name %></span>
+    </h6>
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link active" href="/dashboard">
+          <span data-feather="home"></span>
+          Dashboard <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/products/1">
+          <span data-feather="file"></span>
+          Products
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/checkout">
+          <span data-feather="shopping-cart"></span>
+          CheckOut
+        </a>
+      </li>
+    </ul>
+    <ul class="nav flex-column mb-2">
+      <li class="nav-item">
+        <a class="nav-link" href="/add-product">
+          <span data-feather="file-text"></span>
+          Add Product
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/img-upload">
+          <span data-feather="file-text"></span>
+          Upload image
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
