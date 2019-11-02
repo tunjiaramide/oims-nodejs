@@ -1,27 +1,64 @@
-<h2>Payment Generated Invoice</h2>
-<ul>
-  <li>#<%= order.invoiceNumber.toUpperCase() %></li>
-  <li><%= order.userName %></li>
-  <li><%= order.totalAmount %></li>
-  <li><%= order.paymentChoice %></li>
-</ul>
+<% include ./partials/top-bar %>
 
-<% if (order.paymentChoice === 'bankPayment') { %>
-<h2>Bank Details</h2>
-<p>Diamond Bank</p>
-<p>0045782939</p>
-<p>Pets Mart Nigeria</p>
-<%} else { %>
-<p><a href="#">Please Pay with your Credit Card</a></p>
-<form>
-  <script src="https://js.paystack.co/v1/inline.js"></script>
-  <button type="button" onclick="payWithPaystack()">Pay With Paystack</button>
-</form>
+<div class="container-fluid">
+  <div class="row">
+    <% include ./partials/side-bar %>
 
-<%} %> <% var amount = order.totalAmount * 100 %>
+    <!-- content area -->
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+      <div class="content">
+        <% include ./partials/messages %>
 
-<a href="/products/1">Back to Products</a> <br />
-<a href="/dashboard">Back to Profile</a>
+        <h2>Invoice</h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Invoice Number</th>
+              <th>User Name</th>
+              <th>Total Amount</th>
+              <th>Choice of Payment</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>#<%= order.invoiceNumber.toUpperCase() %></td>
+              <td><%= order.userName %></td>
+              <td><%= order.totalAmount %></td>
+              <td><%= order.paymentChoice %></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <% if (order.paymentChoice === 'bankPayment') { %>
+        <h3>Bank Details</h3>
+        <p>
+          <strong>Bank:</strong> Diamond Bank <br />
+          <strong>Account Number:</strong> 0045782939 <br />
+          <strong>Account Name:</strong> Pets Mart Nigeria
+        </p>
+
+        <%} else { %>
+        <h5>Please Pay with your Credit Card</h5>
+        <form>
+          <script src="https://js.paystack.co/v1/inline.js"></script>
+          <button
+            class="btn btn-success"
+            type="button"
+            onclick="payWithPaystack()"
+          >
+            Pay With Paystack
+          </button>
+        </form>
+
+        <%} %> <% var amount = order.totalAmount * 100 %>
+
+        <a class="btn btn-primary" href="/products/1">Back to Products</a>
+        <a class="btn btn-success" href="/dashboard">Back to Profile</a>
+      </div>
+    </main>
+    <!-- end of content area -->
+  </div>
+</div>
 
 <!-- place below the html form -->
 <script>

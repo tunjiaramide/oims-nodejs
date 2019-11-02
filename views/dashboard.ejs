@@ -9,26 +9,49 @@
       <h2>Dashboard</h2>
       <div class="content">
         <% include ./partials/messages %>
-        <p><strong>Total Orders:</strong> 78</p>
-        <% allOrders.forEach(order => { %>
-        <ul>
-          <li><%= order.userName %></li>
-          <li><%= order.invoiceNumber %></li>
-        </ul>
-        <% }) %>
+        <p><strong>Total Orders:</strong> <%= totalOrders %></p>
 
-        <p><strong>Total Sales:</strong>90,000</p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Invoice Number</th>
+              <th>User Name</th>
+              <th>Total Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% allOrders.forEach(order => { %>
+            <tr>
+              <td>#<%= order.invoiceNumber %></td>
+              <td><%= order.userName %></td>
+              <td>N<%= order.totalAmount %></td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
 
-        <p><strong>Total Products:</strong><%= totalProducts %></p>
+        <p><strong>Total Sales:</strong> N90,000</p>
+
+        <p><strong>Total Products:</strong> <%= totalProducts %></p>
 
         <h2>User Interface</h2>
-
-        <h3>User Orders</h3>
-        <% singleOrders.forEach(order => { %>
-        <ul>
-          <li><%= order.invoiceNumber %></li>
-        </ul>
-        <% }) %>
+        <h4>My Orders</h4>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Invoice Number</th>
+              <th>Total Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% singleOrders.forEach(order => { %>
+            <tr>
+              <td>#<%= order.invoiceNumber %></td>
+              <td>N<%= order.totalAmount %></td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
       </div>
     </main>
     <!-- end of content area -->

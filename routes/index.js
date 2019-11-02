@@ -204,7 +204,8 @@ router.get("/payment-invoice", ensureAuthenticated, (req, res) => {
 
 router.get("/dashboard", ensureAuthenticated, async (req, res) => {
   let UserId = await req.user._id;
-  let allOrders = await Order.find({});
+  let allOrders = await Order.find({}).sort({ _id: -1 });
+  let totalOrders = await Order.countDocuments({});
   let singleOrders = await Order.find({ user: UserId });
 
   Product.countDocuments({}).then(c => {
@@ -212,7 +213,8 @@ router.get("/dashboard", ensureAuthenticated, async (req, res) => {
       totalProducts: c,
       name: req.user.name,
       allOrders,
-      singleOrders
+      singleOrders,
+      totalOrders
     });
   });
 });
