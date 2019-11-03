@@ -5,6 +5,7 @@ const upload = require("../services/img-upload");
 const Cat = require("../models/Cat");
 const Product = require("../models/Product");
 const Order = require("../models/Order");
+const Gallery = require("../models/Gallery");
 const shortId = require("shortid");
 const { ensureAuthenticated, ensureAdmin } = require("../config/auth");
 
@@ -330,11 +331,26 @@ const singleUpload = upload.single("imgUrl");
 router.post("/img-upload", ensureAdmin, (req, res) => {
   singleUpload(req, res, err => {
     if (err) console.log(err);
-    req.flash("success_msg", "File successfully uploaded");
-    res.render("img-upload", {
-      imgUrl: req.file.location
+    const imgUrl = req.file.location;
+    let newGallery = Gallery({ imgUrl });
+    newGallery.save(err => {
+      if (err) console.log(err);
+      req.flash("success_msg", "File successfully uploaded");
+      res.render("img-upload", {
+        imgUrl
+      });
     });
   });
+});
+
+router.get("/gallery", ensureAdmin, (req, res) => {
+  Gallery.find({})
+    .then(imgs => {
+      res.render("gallery", {
+        imgs
+      });
+    })
+    .catch(err => console.log(err));
 });
 
 module.exports = router;

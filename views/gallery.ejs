@@ -1,0 +1,35 @@
+<% include ./partials/top-bar %>
+
+<div class="container-fluid">
+  <div class="row">
+    <% include ./partials/side-bar %>
+
+    <!-- content area -->
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+      <div class="content">
+        <% include ./partials/messages %>
+        <h2>Images</h2>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Img preview</th>
+              <th>Img URL</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% imgs.forEach(m => { %>
+            <tr>
+              <td>
+                <img style="width:70px;height:70px;" src="<%= m.imgUrl %>" />
+              </td>
+              <td><%= m.imgUrl %></td>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    </main>
+    <!-- end of content area -->
+  </div>
+</div>
