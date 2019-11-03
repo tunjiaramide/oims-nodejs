@@ -62,6 +62,14 @@ app.use((req, res, next) => {
 app.use("/", indexRoute);
 app.use("/user", userRoute);
 
+app.get("*", function(req, res) {
+  if (req.user) {
+    res.render("errorPage");
+  } else {
+    res.redirect("/");
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on PORT ${PORT}`);
 });
