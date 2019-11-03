@@ -1,166 +1,184 @@
-<a href="/products/1">Back to Products</a>
+<% include ./partials/top-bar %>
 
-<h2>Add a Product</h2>
+<div class="container-fluid">
+  <div class="row">
+    <% include ./partials/side-bar %>
 
-<form method="post" action="/add-product" enctype="multipart/form-data">
-  <div class="row product_add">
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="formGroupExampleInput">Product Title</label>
-        <input
-          type="text"
-          class="form-control"
-          name="productTitle"
-          placeholder="Enter Product title"
-          value="<%= typeof productTitle != 'undefined' ? productTitle : '' %>"
-          required
-        />
+    <!-- content area -->
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+      <div class="content">
+        <% include ./partials/messages %>
+
+        <a class="btn btn-primary" href="/products/1">Back to Products</a>
+
+        <h2 class="mt-3">Add a Product</h2>
+
+        <form method="post" action="/add-product" enctype="multipart/form-data">
+          <div class="row product_add">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="formGroupExampleInput">Product Title</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="productTitle"
+                  placeholder="Enter Product title"
+                  value="<%= typeof productTitle != 'undefined' ? productTitle : '' %>"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="formGroupExampleInput">Manufacture Date</label>
+                <input
+                  type="month"
+                  class="form-control"
+                  name="manDate"
+                  value="<%= typeof manDate != 'undefined' ? manDate : '' %>"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="formGroupExampleInput">Expiry Date</label>
+                <input
+                  type="month"
+                  class="form-control"
+                  name="expDate"
+                  value="<%= typeof expDate != 'undefined' ? expDate : '' %>"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="exampleSelect1">Select Color</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="color"
+                  value="<%= typeof color != 'undefined' ? color : '' %>"
+                />
+              </div>
+
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="formGroupExampleInput">Image Url</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="imgUrl"
+                    placeholder="Insert Img Url"
+                    value="<%= typeof imgUrl != 'undefined' ? imgUrl : '' %>"
+                  />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <label for="formGroupExampleInput">WholeSale Price</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    name="priceWholesale"
+                    value="<%= typeof priceWholesale != 'undefined' ? priceWholesale : '' %>"
+                    required
+                  />
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="formGroupExampleInput">Retail Price</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    name="priceRetail"
+                    value="<%= typeof priceRetail != 'undefined' ? priceRetail : '' %>"
+                  />
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="formGroupExampleInput">BarCode</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="barCode"
+                    value="<%= typeof barCode != 'undefined' ? barCode : '' %>"
+                  />
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="formGroupExampleInput">SKU</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    name="sku"
+                    value="<%= typeof sku != 'undefined' ? sku : '' %>"
+                  />
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="formGroupExampleInput">Stock Level</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    name="stockLevel"
+                    value="<%= typeof stockLevel != 'undefined' ? stockLevel : '' %>"
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- left col-md-6 -->
+
+            <div class="col-md-6">
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <label for="formGroupExampleInput">Size</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    name="size"
+                    value="<%= typeof size != 'undefined' ? size : '' %>"
+                  />
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="formGroupExampleInput">Weight</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    name="weight"
+                    value="<%= typeof weight != 'undefined' ? weight : '' %>"
+                  />
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="formGroupExampleInput">Select Category</label>
+                  <select name="category">
+                    <% cats.forEach(function(c){ %>
+                    <option value="<%= c.title %>"><%= c.title %> </option>
+                    <% }) %>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1"
+                  >Product Description</label
+                >
+                <textarea
+                  class="form-control"
+                  name="productDesc"
+                  rows="10"
+                  placeholder="Type Something"
+                  value="<%= typeof productDesc != 'undefined' ? productDesc : '' %>"
+                ></textarea>
+              </div>
+
+              <label>
+                <input type="submit" class="btn btn-success" value="Submit" />
+              </label>
+            </div>
+          </div>
+        </form>
       </div>
-
-      <div class="form-group">
-        <label for="formGroupExampleInput">Manufacture Date</label>
-        <input
-          type="month"
-          class="form-control"
-          name="manDate"
-          value="<%= typeof manDate != 'undefined' ? manDate : '' %>"
-        />
-      </div>
-
-      <div class="form-group">
-        <label for="formGroupExampleInput">Expiry Date</label>
-        <input
-          type="month"
-          class="form-control"
-          name="expDate"
-          value="<%= typeof expDate != 'undefined' ? expDate : '' %>"
-        />
-      </div>
-
-      <div class="form-group">
-        <label for="exampleSelect1">Select Color</label>
-        <input
-          type="text"
-          class="form-control"
-          name="color"
-          value="<%= typeof color != 'undefined' ? color : '' %>"
-        />
-      </div>
-
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="formGroupExampleInput">Image Url</label>
-          <input
-            type="text"
-            class="form-control"
-            name="imgUrl"
-            placeholder="Insert Img Url"
-            value="<%= typeof imgUrl != 'undefined' ? imgUrl : '' %>"
-          />
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group col-md-4">
-          <label for="formGroupExampleInput">WholeSale Price</label>
-          <input
-            type="number"
-            class="form-control"
-            name="priceWholesale"
-            value="<%= typeof priceWholesale != 'undefined' ? priceWholesale : '' %>"
-            required
-          />
-        </div>
-
-        <div class="form-group col-md-4">
-          <label for="formGroupExampleInput">Retail Price</label>
-          <input
-            type="number"
-            class="form-control"
-            name="priceRetail"
-            value="<%= typeof priceRetail != 'undefined' ? priceRetail : '' %>"
-          />
-        </div>
-
-        <div class="form-group col-md-4">
-          <label for="formGroupExampleInput">BarCode</label>
-          <input
-            type="text"
-            class="form-control"
-            name="barCode"
-            value="<%= typeof barCode != 'undefined' ? barCode : '' %>"
-          />
-        </div>
-
-        <div class="form-group col-md-4">
-          <label for="formGroupExampleInput">SKU</label>
-          <input
-            type="number"
-            class="form-control"
-            name="sku"
-            value="<%= typeof sku != 'undefined' ? sku : '' %>"
-          />
-        </div>
-
-        <div class="form-group col-md-4">
-          <label for="formGroupExampleInput">Stock Level</label>
-          <input
-            type="number"
-            class="form-control"
-            name="stockLevel"
-            value="<%= typeof stockLevel != 'undefined' ? stockLevel : '' %>"
-          />
-        </div>
-      </div>
-    </div>
-    <!-- left col-md-6 -->
-
-    <div class="col-md-6">
-      <div class="form-row">
-        <div class="form-group col-md-4">
-          <label for="formGroupExampleInput">Size</label>
-          <input
-            type="number"
-            class="form-control"
-            name="size"
-            value="<%= typeof size != 'undefined' ? size : '' %>"
-          />
-        </div>
-
-        <div class="form-group col-md-4">
-          <label for="formGroupExampleInput">Weight</label>
-          <input
-            type="number"
-            class="form-control"
-            name="weight"
-            value="<%= typeof weight != 'undefined' ? weight : '' %>"
-          />
-        </div>
-
-        <div class="form-group col-md-4">
-          <label for="formGroupExampleInput">Select Category</label>
-          <select name="category">
-            <% cats.forEach(function(c){ %>
-            <option value="<%= c.title %>"><%= c.title %> </option>
-            <% }) %>
-          </select>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="exampleFormControlTextarea1">Product Description</label>
-        <textarea
-          class="form-control"
-          name="productDesc"
-          rows="10"
-          placeholder="Type Something"
-          value="<%= typeof productDesc != 'undefined' ? productDesc : '' %>"
-        ></textarea>
-      </div>
-
-      <label>
-        <input type="submit" class="button" value="Submit" />
-      </label>
-    </div>
+    </main>
+    <!-- end of content area -->
   </div>
-</form>
+</div>

@@ -17,6 +17,7 @@
               <th>Invoice Number</th>
               <th>User Name</th>
               <th>Total Amount</th>
+              <th>Payment Choice</th>
             </tr>
           </thead>
           <tbody>
@@ -25,12 +26,16 @@
               <td>#<%= order.invoiceNumber %></td>
               <td><%= order.userName %></td>
               <td>N<%= order.totalAmount %></td>
+              <td><%= order.paymentChoice %></td>
             </tr>
             <% }) %>
           </tbody>
         </table>
 
-        <p><strong>Total Sales:</strong> N90,000</p>
+        <% let totalSales = allOrders.reduce((total, val) => total +
+        val.totalAmount, 0) %>
+
+        <p><strong>Total Sales:</strong> N<%= totalSales %></p>
 
         <p><strong>Total Products:</strong> <%= totalProducts %></p>
 

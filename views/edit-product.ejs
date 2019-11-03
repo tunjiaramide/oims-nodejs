@@ -1,162 +1,182 @@
-<a href="/products/1">Back to Products</a>
+<% include ./partials/top-bar %>
 
-<h2>Edit a Product</h2>
-<% include ./partials/messages %>
+<div class="container-fluid">
+  <div class="row">
+    <% include ./partials/side-bar %>
 
-<form method="post" action="/product-detail/edit/<%= id %>">
-  <div class="row product_add">
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="formGroupExampleInput">Product Title</label>
-        <input
-          type="text"
-          class="form-control"
-          name="productTitle"
-          value="<%= productTitle %>"
-          required
-        />
+    <!-- content area -->
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+      <div class="content">
+        <% include ./partials/messages %>
+
+        <a class="btn btn-primary" href="/products/1">Back to Products</a>
+
+        <h2 class="mt-3">Edit Product</h2>
+        <% include ./partials/messages %>
+
+        <form method="post" action="/product-detail/edit/<%= id %>">
+          <div class="row product_add">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="formGroupExampleInput">Product Title</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="productTitle"
+                  value="<%= productTitle %>"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="formGroupExampleInput">Manufacture Date</label>
+                <input
+                  type="month"
+                  class="form-control"
+                  name="manDate"
+                  value="<%= manDate %>"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="formGroupExampleInput">Expiry Date</label>
+                <input
+                  type="month"
+                  class="form-control"
+                  name="expDate"
+                  value="<%= expDate %>"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="exampleSelect1">Color</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="color"
+                  value="<%= color %>"
+                />
+              </div>
+
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <label for="exampleSelect1">Upload Image URL</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="imgUrl"
+                    value="<%= imgUrl %>"
+                  />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <label for="formGroupExampleInput">WholeSale Price</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    name="priceWholesale"
+                    value="<%= priceWholesale %>"
+                    required
+                  />
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="formGroupExampleInput">Retail Price</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    name="priceRetail"
+                    value="<%= priceRetail %>"
+                  />
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="formGroupExampleInput">BarCode</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="barCode"
+                    value="<%= barCode %>"
+                  />
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="formGroupExampleInput">SKU</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    name="sku"
+                    value="<%= sku %>"
+                  />
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="formGroupExampleInput">Stock Level</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    name="stockLevel"
+                    value="<%= stockLevel %>"
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- left col-md-6 -->
+
+            <div class="col-md-6">
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <label for="formGroupExampleInput">Size</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    name="size"
+                    value="<%= size %>"
+                  />
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="formGroupExampleInput">Weight</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    name="weight"
+                    value="<%= weight %>"
+                  />
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="formGroupExampleInput">Select Category</label>
+                  <select name="category">
+                    <% categories.forEach(function(c){ %> 
+                    <option value="<%= c.title %>" <%= (c.title == catName ) ? 'selected' : '' %> ><%= c.title %>
+                    </option>
+                    <% }) %>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">Product Description</label>
+                <textarea class="form-control" name="productDesc" rows="10">
+                <%= productDesc %></textarea
+                    >
+                  </div>
+
+                  <label>
+                    <input type="submit" class="btn btn-success" value="Update" />
+                  </label>
+                </div>
+              </div>
+            </form>
+
       </div>
-
-      <div class="form-group">
-        <label for="formGroupExampleInput">Manufacture Date</label>
-        <input
-          type="month"
-          class="form-control"
-          name="manDate"
-          value="<%= manDate %>"
-        />
-      </div>
-
-      <div class="form-group">
-        <label for="formGroupExampleInput">Expiry Date</label>
-        <input
-          type="month"
-          class="form-control"
-          name="expDate"
-          value="<%= expDate %>"
-        />
-      </div>
-
-      <div class="form-group">
-        <label for="exampleSelect1">Color</label>
-        <input
-          type="text"
-          class="form-control"
-          name="color"
-          value="<%= color %>"
-        />
-      </div>
-
-      <div class="form-row">
-        <div class="form-group col-md-12">
-          <label for="exampleSelect1">Upload Image URL</label>
-          <input
-            type="text"
-            class="form-control"
-            name="imgUrl"
-            value="<%= imgUrl %>"
-          />
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group col-md-4">
-          <label for="formGroupExampleInput">WholeSale Price</label>
-          <input
-            type="number"
-            class="form-control"
-            name="priceWholesale"
-            value="<%= priceWholesale %>"
-            required
-          />
-        </div>
-
-        <div class="form-group col-md-4">
-          <label for="formGroupExampleInput">Retail Price</label>
-          <input
-            type="number"
-            class="form-control"
-            name="priceRetail"
-            value="<%= priceRetail %>"
-          />
-        </div>
-
-        <div class="form-group col-md-4">
-          <label for="formGroupExampleInput">BarCode</label>
-          <input
-            type="text"
-            class="form-control"
-            name="barCode"
-            value="<%= barCode %>"
-          />
-        </div>
-
-        <div class="form-group col-md-4">
-          <label for="formGroupExampleInput">SKU</label>
-          <input
-            type="number"
-            class="form-control"
-            name="sku"
-            value="<%= sku %>"
-          />
-        </div>
-
-        <div class="form-group col-md-4">
-          <label for="formGroupExampleInput">Stock Level</label>
-          <input
-            type="number"
-            class="form-control"
-            name="stockLevel"
-            value="<%= stockLevel %>"
-          />
-        </div>
-      </div>
-    </div>
-    <!-- left col-md-6 -->
-
-    <div class="col-md-6">
-      <div class="form-row">
-        <div class="form-group col-md-4">
-          <label for="formGroupExampleInput">Size</label>
-          <input
-            type="number"
-            class="form-control"
-            name="size"
-            value="<%= size %>"
-          />
-        </div>
-
-        <div class="form-group col-md-4">
-          <label for="formGroupExampleInput">Weight</label>
-          <input
-            type="number"
-            class="form-control"
-            name="weight"
-            value="<%= weight %>"
-          />
-        </div>
-
-        <div class="form-group col-md-4">
-          <label for="formGroupExampleInput">Select Category</label>
-          <select name="category">
-            <% categories.forEach(function(c){ %> 
-            <option value="<%= c.title %>" <%= (c.title == catName ) ? 'selected' : '' %> ><%= c.title %>
-            </option>
-            <% }) %>
-          </select>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="exampleFormControlTextarea1">Product Description</label>
-        <textarea class="form-control" name="productDesc" rows="10">
-<%= productDesc %></textarea
-        >
-      </div>
-
-      <label>
-        <input type="submit" class="button" value="Update" />
-      </label>
-    </div>
+    </main>
+    <!-- end of content area -->
   </div>
-</form>
+</div>
+
+
+

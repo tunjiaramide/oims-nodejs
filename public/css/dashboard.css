@@ -78,6 +78,7 @@
 
 [role="main"] {
   padding-top: 48px; /* Space for fixed navbar */
+  padding-bottom: 40px;
 }
 
 /*
