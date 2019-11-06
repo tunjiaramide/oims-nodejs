@@ -6,7 +6,6 @@ const Cat = require("../models/Cat");
 const Product = require("../models/Product");
 const Order = require("../models/Order");
 const Gallery = require("../models/Gallery");
-const shortId = require("shortid");
 const { ensureAuthenticated, ensureAdmin } = require("../config/auth");
 
 // home route
@@ -77,6 +76,7 @@ router.get("/cart/:id", ensureAuthenticated, (req, res) => {
           qty: 1,
           price: product[0].priceWholesale,
           barCode: product[0].barCode,
+          imgUrl: product[0].imgUrl,
           id: product[0]._id
         });
       } else {
@@ -96,6 +96,7 @@ router.get("/cart/:id", ensureAuthenticated, (req, res) => {
             qty: 1,
             price: product[0].priceWholesale,
             barCode: product[0].barCode,
+            imgUrl: product[0].imgUrl,
             id: product[0]._id
           });
         }
@@ -162,22 +163,30 @@ router.get("/order", ensureAuthenticated, (req, res) => {
 });
 
 //handle order
-router.post("/order", ensureAuthenticated, (req, res) => {
+router.post("/order", ensureAuthenticated, async (req, res) => {
   let productItems = req.session.cart;
   let { paymentChoice, totalAmount } = req.body;
   let userName = req.user.name;
   let deliveryAddress = "No 16, Abuja Lagos";
   let user = req.user;
-  let invoiceNumber = shortId.generate();
-  console.log(invoiceNumber);
+  let invNumb = 0;
+  try {
+    let lastOrder = await Order.find({})
+      .sort({ _id: -1 })
+      .limit(1);
+    invNumb = parseInt(lastOrder[0].invNumb) + 1;
+  } catch {
+    invNumb = 100;
+  }
+  console.log(invNumb);
 
   let newOrder = Order({
     user,
     userName,
-    invoiceNumber,
     deliveryAddress,
     productItems,
     totalAmount,
+    invNumb,
     paymentChoice
   });
 

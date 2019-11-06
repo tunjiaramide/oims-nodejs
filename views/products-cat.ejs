@@ -22,8 +22,8 @@
           <% products.forEach(function(p){ %>
           <div class="box col-md-2">
             <div class="product_cover">
-              <% if (p.productTitle == '') { %>
-              <img src="<%= p.productTitle %>" />
+              <% if (p.imgUrl == '') { %>
+              <img src="<%= p.imgUrl %>" />
               <% } else { %>
               <img src="https://place-hold.it/180x180" />
               <% } %>

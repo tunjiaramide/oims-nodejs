@@ -14,8 +14,8 @@
 
         <div class="row product_detail mt-2">
           <div class="product_cover col-md-6">
-            <% if (product.productTitle == '') { %>
-            <img src="<%= p.productTitle %>" />
+            <% if (product.imgUrl) { %>
+            <img src="<%= product.imgUrl %>" />
             <% } else { %>
             <img src="https://place-hold.it/450x450" />
             <% } %>
@@ -30,7 +30,9 @@
             <p><strong>BarCode:</strong> <%= product.barCode %></p>
             <div class="cart">
               <a href="/cart/<%= product._id %>">Add to Cart</a>
+              <% if(user.admin == true ) { %>
               <a href="/product-detail/edit/<%= product._id %>">Edit Product</a>
+              <% } %>
             </div>
           </div>
         </div>

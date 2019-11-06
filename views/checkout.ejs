@@ -15,10 +15,10 @@
         <table class="table">
           <thead>
             <tr>
+              <th>Images</th>
               <th scope="col">Product Title</th>
               <th scope="col">Qty</th>
               <th>Price</th>
-              <th>BarCode</th>
               <th>update qty</th>
               <th>Item Total</th>
             </tr>
@@ -28,10 +28,16 @@
             c.qty * c.price; %><% total += subTotal %>
 
             <tr>
+              <td class="imgTable">
+                <% if(c.imgUrl) { %>
+                <img src="<%= c.imgUrl %>" />
+                <% } else { %>
+                <img src="https://place-hold.it/450x450" />
+                <% } %>
+              </td>
               <td><%= c.title %></td>
               <td><%= c.qty %></td>
               <td>N<%= c.price %></td>
-              <td><%= c.barCode %></td>
               <td>
                 <a
                   class="btn btn-primary btn-sm"
@@ -58,13 +64,13 @@
               <td><strong>N<%= total %></strong></td>
             </tr>
             <tr>
-              <td colspan="4"></td>
+              <td colspan="3"></td>
               <td>
                 <a class="btn btn-danger btn-sm" href="/clearcart"
                   >Clear cart</a
                 >
               </td>
-              <td>
+              <td colspan="2">
                 <a class="btn btn-success btn-sm" href="/order">Buy Now</a>
               </td>
             </tr>
