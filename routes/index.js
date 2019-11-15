@@ -6,6 +6,7 @@ const Cat = require("../models/Cat");
 const Product = require("../models/Product");
 const Order = require("../models/Order");
 const Gallery = require("../models/Gallery");
+const Brand = require("../models/Brand");
 const { ensureAuthenticated, ensureAdmin } = require("../config/auth");
 
 // home route
@@ -230,8 +231,9 @@ router.get("/dashboard", ensureAuthenticated, async (req, res) => {
 });
 
 // Edit Product
-router.get("/product-detail/edit/:id", ensureAdmin, (req, res) => {
+router.get("/product-detail/edit/:id", ensureAdmin, async (req, res) => {
   var productId = req.params.id;
+  var brands = await Brand.find({});
   Cat.find({})
     .then(cats => {
       Product.findOne({ _id: productId })
@@ -251,8 +253,10 @@ router.get("/product-detail/edit/:id", ensureAdmin, (req, res) => {
             size: p.size,
             weight: p.weight,
             catName: p.category,
+            brandName: p.brand,
             productDesc: p.productDesc,
-            categories: cats
+            categories: cats,
+            brands
           });
         })
         .catch(err => console.log(err));
@@ -275,7 +279,8 @@ router.post("/product-detail/edit/:id", ensureAdmin, (req, res, next) => {
   var stockLevel = req.body.stockLevel && req.body.stockLevel.trim();
   var size = req.body.size && req.body.size.trim();
   var weight = req.body.weight && req.body.weight.trim();
-  var category = req.body.category && req.body.category.trim();
+  var category = req.body.category;
+  var brand = req.body.brand;
   var productDesc = req.body.productDesc && req.body.productDesc.trim();
 
   var productId = mongoose.Types.ObjectId(req.params.id);
@@ -296,6 +301,7 @@ router.post("/product-detail/edit/:id", ensureAdmin, (req, res, next) => {
         size: size,
         weight: weight,
         category: category,
+        brand: brand,
         productDesc: productDesc
       },
       err => {

@@ -102,3 +102,77 @@ header ul li a {
   margin-top: 20px;
   display: inline-block;
 }
+
+/* Menu dropdown */
+
+/* .cat_menu {
+  margin-bottom: 30px;
+  height: 500px;
+}
+
+li.top_menu {
+  background-color: #eee;
+  padding: 20px 40px;
+  margin-right: 200px;
+  border-radius: 5px;
+}
+
+li.top_menu ul .menu-fill {
+  width: 100%;
+}
+.cat_menu ul {
+  position: absolute;
+  margin: 0;
+  list-style: none;
+}
+
+.cat_menu li {
+  display: inline-block;
+  padding: 5px 10px;
+  position: relative;
+}
+
+.cat_menu li:hover > ul {
+  display: block;
+}
+
+.cat_menu ul ul {
+  position: absolute;
+  display: none;
+  margin-top: 5px;
+  padding: 5px 10px;
+  background-color: #6a2923;
+  width: 300px;
+}
+.cat_menu ul ul li {
+  display: block;
+}
+
+.cat_menu ul ul ul {
+  position: absolute;
+  top: 0;
+  left: 100%;
+} */
+
+/* Navbar container */
+/* Navbar container */
+
+.cat_menu {
+  height: 100px;
+}
+.dropdown {
+  margin-right: 20px;
+}
+
+.dropdown-item {
+  padding: 5px;
+  font-size: 13px;
+  width: 100%;
+}
+
+.drop-menu {
+  min-width: 55rem;
+}
+.drop-menu2 {
+  min-width: 45rem;
+}

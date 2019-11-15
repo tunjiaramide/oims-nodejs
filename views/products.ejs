@@ -9,6 +9,7 @@
       <div class="content">
         <div>
           <% include ./partials/messages %>
+
           <ul class="product_cat list-inline">
             <li class="list-inline-item"><a href="/products/1">All</a></li>
             <% cats.forEach(cat => { %>
@@ -17,6 +18,237 @@
             </li>
             <% }) %>
           </ul>
+        </div>
+
+        <ul>
+          <li>
+            <a href="#">BIRDS</a>
+            <ul>
+              <li><a href="Birds_BirdCareProducts">BirdCare Products</a></li>
+              <li><a href="Birds_Food&Treats">Food & Treats</a></li>
+              <li><a href="Birds_Supplies">Supplies</a></li>
+            </ul>
+          </li>
+          <li><a href="Books">BOOKS</a></li>
+
+          <li>
+            <a href="#">CATS</a>
+            <ul>
+              <li>
+                <a href="#">CatCare Products</a>
+                <ul>
+                  <li>
+                    <a href="Cats_CatCare_Cleaning&Potty">Cleaning & Potty</a>
+                  </li>
+                  <li><a href="Cats_CatCare_Dental">Dental</a></li>
+                  <li><a href="Cats_CatCare_HealthCare">HealthCare</a></li>
+                  <li><a href="Cats_CatCare_Repellants">Repellants</a></li>
+                  <li>
+                    <a href="Cats_CatCare_Stain&OdorRemovers"
+                      >Stain & Odor Repellants</a
+                    >
+                  </li>
+                  <li>
+                    <a href="Cats_CatCare_Vitamins&Supplements"
+                      >Vitamins & Supplements</a
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li><a href="#">Food</a>
+                <ul>
+                  <li><a href="Cats_Food_DryFood">Dry Food</a></li>
+                  <li><a href="Cats_Food_WetFood">Wet Food</a></li>
+                </ul>
+              </li>
+              <li><a href="#">Supplies</a>
+              <ul>
+                <li><a href="Cats_Supplies_Beds&Mat">Beds & Mats</a></li>
+                <li><a href="Cats_Supplies_Bowls&Feeders">Bowls & Feeders</a></li>
+                <li><a href="Cats_Supplies_Cages_Crates_Pens&Houses">Cages, Crates, Pens & Houses</a></li>
+                <li><a href="Cats_Supplies_Carriers&Travel">Carriers & Travel</a></li>
+                <li><a href="Cats_Supplies_Collars">Collars</a></li>
+                <li><a href="Cats_Supplies_Grooming_Supplies">Grooming Supplies</a></li>
+                <li><a href="Cats_Supplies_Leads&Leashes">Leads& Leashes</a></li>
+                <li><a href="Cats_Supplies_Tick&Flea">Tick & Flea</a></li>
+                <li><a href="Cats_Supplies_Toys">Toys</a></li>
+                <li><a href="Cats_Supplies_Training&behavior">Training & Behavior</a></li>
+              </ul>
+              </li>
+              <li><a href="#">Treats</a>
+                <ul>
+                  <li><a href="Cats_Treats_Biscuits&CrunchyTreats">Biscuits & Crunchy Treats</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><a href="#">DOGS</a>
+            <ul>
+              <li><a href="#">DogCare Products</a>
+                <ul>
+                  <li><a href="Dogs_DogCare_Cleaning&Potty">Cleaning & Potty</a></li>
+                  <li><a href="Dogs_DogCare_Dental">Dental</a></li>
+                  <li><a href="Dogs_DogCare_HealthCare">HealthCare</a></li>
+                  <li><a href="Dogs_DogCare_Repellants">Repellants</a></li>
+                  <li><a href="Dogs_DogCare_Stain&OdorRemovers">Stain & Odor Removers</a></li>
+                  <li><a href="Dogs_DogCare_Vitamins&Supplements">Vitamims & Supplements</a></li>
+                </ul>
+              </li>
+              <li><a href="#">Food</a>
+                <ul>
+                  <li><a href="Dogs_Food_DryFood">Dry Food</a></li>
+                  <li><a href="Dogs_Food_FlavorSpread">Flavor Spread</a></li>
+                  <li><a href="Dogs_Food_PrescriptionDiets">Prescription Diets</a></li>
+                  <li><a href="Dogs_Food_WetFood">Wet Food</a></li>
+                </ul>
+              </li>
+              <li><a href="#">Supplies</a>
+              <ul>
+                <li><a href="Dogs_Supplies_Beds&Mats">Beds & Mats</a></li>
+                <li><a href="Dogs_Supplies_Bowls&Feeders">Bowls & Feeders</a></li>
+                <li><a href="Dogs_Supplies_CableTieOut">Cable Tie Out</a></li>
+                <li><a href="Dogs_Supplies_Cages_Crates_Gates_Pens&Houses">Cages, Crates, Gates, Pens & Houses</a></li>
+                <li><a href="Dogs_Supplies_Carries&Travel">Carries & Travel</a></li>
+                <li><a href="Dogs_Supplies_Choke_Chain">Choke Chain</a></li>
+                <li><a href="Dogs_Supplies_Collars">Collars</a></li>
+                <li><a href="Dogs_Supplies_Couplers">Couplers</a></li>
+                <li><a href="Dogs_Supplies_GroomingSupplies">Grooming Supplies</a></li>
+                <li><a href="Dogs_Supplies_Harnesses">Harnesses</a></li>
+                <li><a href="Dogs_Supplies_Leads_Leashes">Leads / Leashes</a></li>
+                <li><a href="Dogs_Supplies_Mouth_Guard">Mouth Guard (Muzzler)</a></li>
+                <li><a href="Dogs_Supplies_Tick&Flea">Tick & Flea</a></li>
+                <li><a href="Dogs_Supplies_Toys">Toys</a></li>
+                <li><a href="Dogs_Supplies_Training&Behaviour">Training & Behaviour</a></li>
+              </ul>
+              </li>
+              <li><a href="#">Treats</a>
+              <ul>
+                <li><a href="Dogs_Treats_Biscuits&Crunchy">Biscuits & Crunchy Treats</a></li>
+                <li><a href="Dogs_Treats_Dental&HardChews">Dental & Hard Chews</a></li>
+                <li><a href="Dogs_Treats_NaturalChews">Natural Chews</a></li>
+                <li><a href="Dogs_Treats_Soft&ChewyTreats">Soft & Chewy Treats</a></li>
+              </ul>
+              </li>
+            </ul>
+          </li>
+          <li><a href="#">FISH</a>
+          <ul>
+            <li><a href="Fish_Food&Treats">Food & Treats</a></li>
+            <li><a href="Fish_Supplies">Supplies</a></li>
+          </ul>
+          </li>
+          <li><a href="#">SMALL ANIMALS</a>
+            <ul>
+              <li><a href="SmallAnimals_Food&Treats">Food & Treats</a></li>
+              <li><a href="SmallAnimals_Supplies">Supplies</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <div class="cat_menu">
+          <div class="btn-group">
+            <!-- <div class="dropdown">
+              <a
+                class="btn btn-secondary dropdown-toggle"
+                href="#"
+                role="button"
+                id="dropdownMenuLink"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Shop By Pets
+              </a>
+
+              <div
+                class="dropdown-menu drop-menu"
+                aria-labelledby="dropdownMenuLink"
+                style="padding:20px;"
+              >
+                <div class="row">
+                  <div class="col-md-2">
+                    <h6>Dogs</h6>
+                    <a class="dropdown-item" href="#">Food</a>
+                    <a class="dropdown-item" href="#">Treats</a>
+                    <a class="dropdown-item" href="#">Supplies</a>
+                    <a class="dropdown-item" href="#">PetCare Products</a>
+                  </div>
+
+                  <div class="col-md-2">
+                    <h6>Cats</h6>
+                    <a class="dropdown-item" href="#">Food</a>
+                    <a class="dropdown-item" href="#">Treats</a>
+                    <a class="dropdown-item" href="#">Supplies</a>
+                    <a class="dropdown-item" href="#">PetCare Products</a>
+                  </div>
+
+                  <div class="col-md-2">
+                    <h6>Birds</h6>
+                    <a class="dropdown-item" href="#">Food & Treats</a>
+                    <a class="dropdown-item" href="#">Supplies</a>
+                  </div>
+                  <div class="col-md-2">
+                    <h6>Fish</h6>
+                    <a class="dropdown-item" href="#">Food & Treats</a>
+                    <a class="dropdown-item" href="#">Supplies</a>
+                  </div>
+                  <div class="col-md-2">
+                    <h6>Small Animals</h6>
+                    <a class="dropdown-item" href="#">Food & Treats</a>
+                    <a class="dropdown-item" href="#">Supplies</a>
+                  </div>
+                  <div class="col-md-2">
+                    <h6>Books</h6>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+
+            <div class="dropdown">
+              <a
+                class="btn btn-secondary dropdown-toggle"
+                href="#"
+                role="button"
+                id="dropdownMenuLink"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Shop By Brands
+              </a>
+
+              <div
+                class="dropdown-menu drop-menu2"
+                aria-labelledby="dropdownMenuLink"
+                style="padding:20px;"
+              >
+                <div class="row">
+                  <div class="col-md-4">
+                    <a class="dropdown-item" href="#">Four Paws Pet Product</a>
+                    <a class="dropdown-item" href="#">ALC Innovators</a>
+                    <a class="dropdown-item" href="#">Coastal Pet Products</a>
+                    <a class="dropdown-item" href="#">NaturVet Pet Products</a>
+                  </div>
+
+                  <div class="col-md-4">
+                    <a class="dropdown-item" href="#">Fortan</a>
+                    <a class="dropdown-item" href="#">Johnson Vet Products</a>
+                    <a class="dropdown-item" href="#">RoseWood Pet Products</a>
+                    <a class="dropdown-item" href="#">PetMate</a>
+                  </div>
+
+                  <div class="col-md-4">
+                    <a class="dropdown-item" href="#"
+                      >The Animal Health Company</a
+                    >
+                    <a class="dropdown-item" href="#">PetsMart Pet Products</a>
+                    <a class="dropdown-item" href="#">Royal Canin</a>
+                    <a class="dropdown-item" href="#">Tropiclean</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="row products justify-content-space-between;">

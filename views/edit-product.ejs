@@ -127,7 +127,8 @@
 
             <div class="col-md-6">
               <div class="form-row">
-                <div class="form-group col-md-4">
+
+                <div class="form-group col-md-6">
                   <label for="formGroupExampleInput">Size</label>
                   <input
                     type="number"
@@ -137,7 +138,7 @@
                   />
                 </div>
 
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                   <label for="formGroupExampleInput">Weight</label>
                   <input
                     type="number"
@@ -147,16 +148,32 @@
                   />
                 </div>
 
-                <div class="form-group col-md-4">
-                  <label for="formGroupExampleInput">Select Category</label>
-                  <select name="category">
-                    <% categories.forEach(function(c){ %> 
-                    <option value="<%= c.title %>" <%= (c.title == catName ) ? 'selected' : '' %> ><%= c.title %>
-                    </option>
-                    <% }) %>
-                  </select>
-                </div>
               </div>
+
+              <div class="form-row">
+
+                  <div class="form-group col-md-12">
+                      <label for="formGroupExampleInput">Select Category</label>
+                      <select name="category">
+                        <% categories.forEach(function(c){ %> 
+                        <option value="<%= c.title %>" <%= (c.title == catName ) ? 'selected' : '' %> ><%= c.title %>
+                        </option>
+                        <% }) %>
+                      </select>
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        <label for="formGroupExampleInput">Select Brands</label>
+                        <select name="brand">
+                          <% brands.forEach(function(b){ %> 
+                          <option value="<%= b.title %>" <%= (b.title == brandName ) ? 'selected' : '' %> ><%= b.title %>
+                          </option>
+                          <% }) %>
+                        </select>
+                      </div>
+
+              </div>
+
 
               <div class="form-group">
                 <label for="exampleFormControlTextarea1">Product Description</label>
