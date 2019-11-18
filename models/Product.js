@@ -15,7 +15,7 @@ var ProductSchema = new mongoose.Schema({
   size: { type: String },
   weight: { type: String },
   productDesc: { type: String },
-  category: { type: String },
+  category: [{ type: String }],
   brand: { type: String }
 });
 

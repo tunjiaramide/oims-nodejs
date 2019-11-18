@@ -57,6 +57,19 @@ router.get("/cat/:id", ensureAuthenticated, (req, res) => {
   });
 });
 
+//List products by Brand
+router.get("/brand/:id", ensureAuthenticated, (req, res) => {
+  let brandName = req.params.id;
+  Brand.find({}).then(brands => {
+    Product.find({ brand: brandName }).then(products => {
+      res.render("products-brand", {
+        brands,
+        products
+      });
+    });
+  });
+});
+
 //get Product details
 router.get("/product-detail/:id", ensureAuthenticated, (req, res, next) => {
   let productId = req.params.id;
@@ -279,9 +292,12 @@ router.post("/product-detail/edit/:id", ensureAdmin, (req, res, next) => {
   var stockLevel = req.body.stockLevel && req.body.stockLevel.trim();
   var size = req.body.size && req.body.size.trim();
   var weight = req.body.weight && req.body.weight.trim();
-  var category = req.body.category;
+  var categories = [];
+  categories = req.body.category;
   var brand = req.body.brand;
   var productDesc = req.body.productDesc && req.body.productDesc.trim();
+
+  console.log(categories);
 
   var productId = mongoose.Types.ObjectId(req.params.id);
   if (mongoose.Types.ObjectId.isValid(productId)) {
@@ -300,7 +316,7 @@ router.post("/product-detail/edit/:id", ensureAdmin, (req, res, next) => {
         stockLevel: stockLevel,
         size: size,
         weight: weight,
-        category: category,
+        category: categories,
         brand: brand,
         productDesc: productDesc
       },
